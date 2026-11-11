@@ -1,0 +1,3 @@
+"country","year","xVXa","xSES","xRISK","xHIV","xTB","xtype","xcause","yVXa","ySES","yRISK","yHIV","yTB","ytype","ycause","fn","age_from","age_thru","value","lo","hi","err","name","type"
+"MOZ",2025.5,"all","all","all","all","Ds","inflow","Tm, TBp, TBtr_LfLsDs, TBtr_RDs","all","all","all","all","all","stock",NA,"1e5*x/y",0,99,180.5,111.5,266,77.25,"TB_inci_0_99","inci"
+"MOZ",2025.5,"all","all","all","all","Ds","inflow","Tm, TBp, TBtr_LfLsDs, TBtr_RDs","all","all","all","all","all","stock",NA,"1e5*x/y",0,99,180.5,111.5,266,77.25,"TB_inci_0_99","inci"

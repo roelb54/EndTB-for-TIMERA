@@ -1,0 +1,42 @@
+name,unique.name,xpath,VXa.stage,SES.stage,RISK.stage,HIV.stage,age.group,dist,mean,shape,min,max,choose
+ARTmul,ARTmulHIV-,//TB/TB.progression/TB.parameter,NA,NA,NA,HIV-,NA,constant,0,NA,NA,NA,FALSE
+ARTmul,ARTmulHIV1,//TB/TB.progression/TB.parameter,NA,NA,NA,HIV1,NA,constant,1,NA,NA,NA,FALSE
+ARTmul,ARTmulHIVdead,//TB/TB.progression/TB.parameter,NA,NA,NA,HIVdead,NA,constant,0,NA,NA,NA,FALSE
+betaH,betaH,//HIV/HIV.progression/HIV.parameter,NA,NA,NA,NA,NA,constant,0.074,NA,NA,NA,FALSE
+ep,ep,//TB/TB.infectivity/TB.parameter,NA,NA,NA,NA,NA,constant,0.15733477,NA,NA,NA,FALSE
+HIVmul,HIVmulHIV-,//TB/TB.progression/TB.parameter,NA,NA,NA,HIV-,NA,constant,0,NA,NA,NA,FALSE
+HIVmul,HIVmulHIV1,//TB/TB.progression/TB.parameter,NA,NA,NA,HIV1,NA,constant,1.5,NA,NA,NA,FALSE
+HIVmul,HIVmulART1,//TB/TB.progression/TB.parameter,NA,NA,NA,ART1,NA,constant,1.15,NA,NA,NA,FALSE
+HIVmul,HIVmulHIVdead,//TB/TB.progression/TB.parameter,NA,NA,NA,HIVdead,NA,constant,0,NA,NA,NA,FALSE
+j1,j1A15,//TB/TB.progression/TB.parameter; //TB/TB.transmission/TB.parameter,NA,NA,NA,NA,A15,constant,1,NA,NA,NA,FALSE
+j2,j2A15,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A15,constant,1,NA,NA,NA,FALSE
+j3,j3A15,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A15,constant,1,NA,NA,NA,FALSE
+j4,j4A15,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A15,constant,1,NA,NA,NA,FALSE
+muH,muH,//HIV/HIV.progression/HIV.parameter,NA,NA,NA,NA,NA,constant,0.1,NA,NA,NA,FALSE
+omega,omega,//TB/TB.progression/TB.parameter; //TB/TB.transmission/TB.parameter,NA,NA,NA,NA,NA,constant,0.5,NA,NA,NA,FALSE
+phiF,phiF,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,constant,1.40E-06,NA,NA,NA,FALSE
+sage,sageA0,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A0,constant,1,NA,NA,NA,FALSE
+sfp,sfp,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,constant,0.98839721,NA,NA,NA,FALSE
+tau,tau,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,constant,0.5,NA,NA,NA,FALSE
+alphaH,alphaH,//HIV/HIV.progression/HIV.parameter,NA,NA,NA,NA,NA,uniform,5460.151611,NA,0,7000,FALSE
+ARTmul,ARTmulART1,//TB/TB.progression/TB.parameter,NA,NA,NA,ART1,NA,uniform,0.362131572,NA,0.28,0.44,FALSE
+chi,chi,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.170553166,NA,0.1,0.25,FALSE
+eta,eta,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.570577347,NA,0,1,FALSE
+j1,j1A0,//TB/TB.progression/TB.parameter; //TB/TB.transmission/TB.parameter,NA,NA,NA,NA,A0,uniform,0.502904365,NA,0,1,FALSE
+j2,j2A0,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A0,uniform,0.458656902,NA,0,1,FALSE
+j3,j3A0,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A0,uniform,0.522485336,NA,0,1,FALSE
+j4,j4A0,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A0,uniform,0.642236897,NA,0,1,FALSE
+kappa,kappa,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.096412397,NA,0,0.15055359,FALSE
+lambdaH,lambdaH,//HIV/HIV.progression/HIV.parameter,NA,NA,NA,NA,NA,uniform,152.3319783,NA,0,300,FALSE
+musTB,musTB,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.137887143,NA,0,0.178,FALSE
+multiplier,multiplier,//TB/seeded.infections,NA,NA,NA,NA,NA,uniform,0.97094868,NA,0,1.9,FALSE
+phiS,phiS,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.035812197,NA,0.0254,0.0467,FALSE
+pR,pR,//TB/TB.transmission/TB.parameter,NA,NA,NA,NA,NA,uniform,0.728447228,NA,0.6,0.85,FALSE
+progmul,progmul,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,8.807142051,NA,3.94,14.45,TRUE
+pT,pT,//TB/TB.transmission/TB.parameter,NA,NA,NA,NA,NA,uniform,0.000239697,NA,0,0.0068,TRUE
+rho,rho,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.018794876,NA,1.00E-04,0.07,TRUE
+sage,sageA15,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,A15,uniform,0.799842456,NA,0,1,TRUE
+sigma,sigma,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.000598211,NA,0.000135,0.00113,TRUE
+t,t,//TB/TB.infectivity/TB.parameter,NA,NA,NA,NA,NA,uniform,0.789292794,NA,0.62,1,TRUE
+theta,theta,//TB/TB.progression/TB.parameter; //TB/TB.transmission/TB.parameter,NA,NA,NA,NA,NA,uniform,0.088425805,NA,0.0696,0.111,TRUE
+zeta,zeta,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0.801778432,NA,0,12,TRUE

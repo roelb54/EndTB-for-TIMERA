@@ -1,4 +1,4 @@
-model_version_ = "3_7_6"
+model_version_ = "3_7_5"
 #' Returns the model version as a string
 #' 
 #' 

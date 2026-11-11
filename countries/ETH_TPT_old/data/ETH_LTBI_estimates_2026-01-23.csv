@@ -1,0 +1,11 @@
+country,iso2,iso3,iso_numeric,g_whoregion,year,source_hh,e_hh_size,prevtx_data_available,newinc_con_prevtx,newinc_con04_prevtx,ptsurvey_newinc,ptsurvey_newinc_con04_prevtx,e_hh_contacts,e_hh_contacts_lo,e_hh_contacts_hi,e_prevtx_hh_contacts_pct,e_prevtx_hh_contacts_pct_lo,e_prevtx_hh_contacts_pct_hi,e_prevtx_eligible,e_prevtx_eligible_lo,e_prevtx_eligible_hi,e_prevtx_kids_pct,e_prevtx_kids_pct_lo,e_prevtx_kids_pct_hi
+Ethiopia,ET,ETH,231,AFR,2015,DHS; 2019-07-04,4.73,0,,,,,180000,170000,180000,,,,33000,30000,36000,,,
+Ethiopia,ET,ETH,231,AFR,2016,DHS; 2019-07-04,4.73,0,,,,,160000,160000,170000,,,,30000,27000,32000,,,
+Ethiopia,ET,ETH,231,AFR,2017,DHS; 2019-07-04,4.73,60,,2964,,,160000,160000,160000,1.9,1.8,1.9,29000,26000,31000,10,9.4,11
+Ethiopia,ET,ETH,231,AFR,2018,DHS; 2019-07-04,4.73,60,,6433,,,170000,160000,170000,,,,30000,27000,33000,21,20,24
+Ethiopia,ET,ETH,231,AFR,2019,DHS; 2019-07-04,4.73,60,,9732,,,170000,160000,170000,,,,30000,28000,33000,32,29,35
+Ethiopia,ET,ETH,231,AFR,2020,DHS; 2019-07-04,4.73,60,8771,8771,,,160000,160000,170000,5.4,5.3,5.5,29000,27000,32000,30,27,33
+Ethiopia,ET,ETH,231,AFR,2021,DHS; 2019-07-04,4.73,60,21452,21452,,,160000,160000,170000,13,13,14,29000,27000,32000,73,67,81
+Ethiopia,ET,ETH,231,AFR,2022,DHS; 2019-07-04,4.73,60,49647,49647,,,180000,180000,190000,27,26,28,33000,30000,36000,100,100,100
+Ethiopia,ET,ETH,231,AFR,2023,DHS; 2019-07-04,4.73,1,54343,14389,,,220000,210000,220000,25,24,26,39000,35000,42000,37,34,41
+Ethiopia,ET,ETH,231,AFR,2024,DHS; 2019-07-04,4.73,1,71311,18531,,,260000,250000,260000,28,27,28,46000,41000,50000,41,37,45

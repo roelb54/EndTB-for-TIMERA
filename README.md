@@ -1,7 +1,5 @@
 README repository KNCVTB/EndTB branch main
 
-Nov  10, 2026  EndTB model version 3.7.6
-
 Jan  18, 2026  EndTB model version 3.7.5
 
   Fixed bug in matmul.by.age.group.trigger function:

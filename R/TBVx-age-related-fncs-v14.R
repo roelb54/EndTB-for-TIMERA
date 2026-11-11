@@ -167,7 +167,7 @@ endtb.matmul.by.age.group.trigger=function(subject,Y,mult=1,p=NULL){
   return(dY)
 }
 
-# updated to TBmod trigger mechanism on 23 DEC 2025 and fixed on 19 Jan 2026 
+# updated to TBmod trigger mechanism on 23 DEC 2025 
 # NOTE: compare with previous version i.e. deprecated.matmul.by.age.group.trigger
 matmul.by.age.group.trigger=function(subject,Y,mult=1,p=NULL,t=0){
   trigger     = strsplit(subject$trigger,":")[[1]]
@@ -176,13 +176,14 @@ matmul.by.age.group.trigger=function(subject,Y,mult=1,p=NULL,t=0){
   x           = numeric(p$nVXaSESRISKHIVTB)
   x[trigger.idx]= 1
   dYnum  = matmul.by.age.group(subject,Y) # dYnum is the selection of IGRA positives
-  #dYfrac = dYnum/sum(Y[p$ALIVE,]) # dYfrac is the fraction of IGRA positives i.e. the prevalence
+  dYfrac = dYnum/sum(Y[p$ALIVE,]) # dYfrac is the fraction of IGRA positives i.e. the prevalence
   # ABOVE: probably not correct! the alternative (in tbmod-generic-merge) is
-  dYfrac = dYnum/sum(Y[p$ALIVE,])
-  #cat("t=",t," on treatment: ",sum(Y*x),"\n")
+  # dYfrac = 2*dYnum/sum(dYnum[p$ALIVE,]) 
+  # which probably makes more sense ....
+  #dYfrac[is.nan(dYfrac)] = 0
+  cat("t=",t," on treatment: ",sum(Y*x),"\n")
   dY     = mult * sum(Y*x) * dYfrac # mult * sum(Y*x) is a rate (in mult) times a number (on treatment) times the fraction of IGRA positives 
-  #cat("mult : ",mult,"\n")
-  #cat("start on TPT : ",-sum(dY[dY<0]),"\n")
+  cat("start on TPT: ",sum(dY[dY>0]),"\n")
   return(dY)
 }
 

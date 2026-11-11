@@ -49,8 +49,7 @@ add.vaccination.results = function(t,p,dvacc,rownamesZ,subject="VXa"){
 #' @return a \code{double[nVXaSESRISKHIVTB x nAGES]} vector of adjusted state variables
 #' @export
 aging.and.births.and.update.contact.matrix.event <- function(t,X,p){
-  #cat("yearly update at t=",t,"\t")
-  #cat(t,"\t")
+  #cat("yearly update at t=",t,"\n")
   if (t>p$run.params$simulation$years[1]){
     events.at = unique(trunc(p$run.params$simulation$years))[-1]
     if (t==events.at[1] & !p$intervention){
@@ -212,9 +211,6 @@ aging.and.births.and.update.contact.matrix.event <- function(t,X,p){
         return(0*X)
       }
     }
-    #if (t==1960){
-    #  cat("debug in 1960\n")
-    #}
     return(as.vector(Z))
   }else{
     return(X)
@@ -232,9 +228,6 @@ aging.and.births.and.update.contact.matrix.event <- function(t,X,p){
 #' @return a \code{double [nAGES]} of the force of infection by age group
 #' @export
 foi=function(t,Y,parms,i){
-  #if (t>=2000){
-  #  cat("stop in 2000\n")
-  #}
   if (parms$gendered){
     return(foi.sex(t,Y,parms,i))
   }
@@ -244,9 +237,6 @@ foi=function(t,Y,parms,i){
   }else{
     mult = 1
   }
-  #if (t>1900){
-  #  cat("debug here\n")
-  #}
   I_ = matmul.by.age.group(parms$Infc[[i]], Y)
   i_ = colSums(I_)/colSums(Y[parms$ALIVE,])
   i_[is.nan(i_) | is.infinite(i_)]=0.
@@ -637,7 +627,7 @@ derivs.deSolve=function(t,X,p){
           if (is.na(p$TBtr[[i]]$trigger)){
             dY = dY + matmul.by.age.group(p$TBtr[[i]],Y,mult=mult)
           }else{
-            dY = dY + matmul.by.age.group.trigger(p$TBtr[[i]],Y,mult,p,t)
+            dY = dY + matmul.by.age.group.trigger(p$TBtr[[i]],Y,mult,p)
           }
         }
       }
@@ -715,15 +705,19 @@ derivs.deSolve=function(t,X,p){
           if (is.na(p$VXatr[[i]]$trigger)){
             dY = dY + matmul.by.age.group(p$VXatr[[i]],Y,mult=mult)
           }else{
-            #if (t> 2030){
-            #  cat("debug at t=",t,"\n")
-            #}
-            dY = dY + matmul.by.age.group.trigger(p$VXatr[[i]],Y,mult=mult,p=p,t=t)
+            if (mult>4 & t> 2035){
+              cat("debug as mult>4 at t=",t,"\n")
+            }
+            dY = dY + matmul.by.age.group.trigger(p$VXatr[[i]],Y,mult=mult,p=p)
           }
         }
       }
     }
   }
+  
+  
+  
+  
   # assert_that(sum(is.nan(dY))==0,msg=paste0("NaNs in derivs.deSolve @ t=",t))
   assert <<- F # disable special type of assert 
   # NOTE: HIV and TB deaths are included in dY (as negative contributions) already due to progression)
@@ -745,7 +739,7 @@ run.deSolve = function(params = NULL){
   if (params$contacts$defined){
     for (i in seq_along(params$contacts$mtbstrain)){
       if (params$gendered){
-          cat("use ALIVE gendered pop")
+          #cat("use ALIVE gendered pop")
           risk.group.indices = calc.all.indices.for.dim(params,"SES") 
           male   = risk.group.indices %in% c(1,2)[params$DIMNAMESLIST$SES=="male"]
           female = risk.group.indices %in% c(1,2)[params$DIMNAMESLIST$SES=="female"]
@@ -851,7 +845,7 @@ calc.vac.flows=function(p){
 #' @export 
 run.model = function(model.params=NULL, output.flows=T){
   out  = run.deSolve(model.params)
-  cat(paste("ran deSolve ; before checking negative state vars",now(),"\n"))
+  
   modlog(level="DEBUG",msg="successful result of run.deSolve()")
   options = model.params$run.params$output
   for (j in seq_along(out$times)){
@@ -864,7 +858,6 @@ run.model = function(model.params=NULL, output.flows=T){
         neg = model.params$run.params$num.int[[2]]$min.value.for.state.var
     }
     Y = out$state[[j]]
-    Y[Y<0.]=0.
     tocorrect = Y<0 & Y>neg
     ntocorrect = sum(tocorrect)
     if (ntocorrect>0){
@@ -884,10 +877,7 @@ run.model = function(model.params=NULL, output.flows=T){
       }
     }
   }
-  cat(paste("after checking negative state vars",now(),"\n"))
-  gc()
   result = list()
-  cat("after gc() ; now generate prevalence output\n")
   result$stocks = generate.prevalence.output(t=out$times,state=out$state,params=model.params)
   dead = rep(F,model.params$nVXaSESRISKHIVTB)
   for (name in model.params$DIMNAMES){
@@ -906,7 +896,6 @@ run.model = function(model.params=NULL, output.flows=T){
   # if (options$suppress_zeros_stocks) { stocks = stocks[value>1e-6,] }
   modlog(level="DEBUG",msg="successful generation of stocks output from generate.prevalence.output()")
   if (output.flows){
-    cat("generate flows output\n")
     result$flows  = generate.all.flows.output(incidence.from.model.run(out,model.params),params=model.params)
     gc()
   # if (options$suppress_zeros_flows){ flows = flows[abs(value)>1e-6,] }

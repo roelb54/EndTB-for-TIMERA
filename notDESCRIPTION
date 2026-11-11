@@ -1,0 +1,44 @@
+Package: endTB
+Type: Package
+Title: endTB is an R package for estimating the impact of TB interventions including TB vaccins (pop by gender) 
+Version: 3.7.5
+Authors@R: person("Roel", "Bakker", email = "roel.bakker@gmail.com",
+                  role = c("aut", "cre"))
+Description: estimates the impact of TB interventions including TB vaccins
+Depends: 
+	Matrix,
+      R (>= 4.3.0),
+    	here,
+    	tools,
+	assertthat,
+	stringi,
+	xml2,
+	digest,
+	deSolve,
+	data.table,
+	fst,
+	minpack.lm,
+	lubridate,
+	log4r 
+Imports: 
+	Matrix,
+    	here,
+    	tools,
+	assertthat,
+	stringi,
+	xml2,
+	digest,
+	deSolve,
+	data.table,
+	fst,
+	minpack.lm,
+	lubridate,
+	log4r 
+License: What license is it under?
+LazyData: true
+RoxygenNote: 7.3.2
+Encoding: UTF-8
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

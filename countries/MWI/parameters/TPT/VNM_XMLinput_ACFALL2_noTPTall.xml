@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../TB-Vx-EndTB-schema-E.xsd">
+  <simulation from.year="1900" thru.year="2051">
+    <options>
+      <numerical.integration method="ode23" atol="1e-2" rtol="1e-2" min.value.for.state.var="-1e-2"/>
+    </options>
+    <demography country.code="ignored" rescale.population="1950" use.SES.for.sex="true">
+      <!-- ignored really means from command line-->
+      <from.data>
+        <population file="data/demographics_all.csv"/>
+        <malepopulation file="data/demographics_male.csv"/>
+        <femalepopulation file="data/demographics_female.csv"/>
+        <birthrate from.population.data="true"/>
+        <malemortality file="data/deathrates_male.csv"/>
+        <femalemortality file="data/deathrates_female.csv"/>
+      </from.data>
+      <assortativity name="assortativity.by.sex" value="0.22" />
+    </demography>
+    <contact.matrix file="data/all_contacts_2021.txt" Mtb-strain="drugsens">
+  </contact.matrix>
+    <!-- country code will be prepended to file name e.g. ZAF_all_contacts_2020.txt -->
+  </simulation>
+  <output>
+    <!--<final.population.as.fraction file="./data/IN-final-population-2050.txt"/>-->
+    <detailed.output years="c(1980:2050)+0.5" age.group.lower.limits="0,15,25,35,45,55,65"  econ.output="false" suppress.zeros.in.stocks="false" suppress.zeros.in.flows="false" combine.stocks.and.flows="false">
+      <flows dim="TB" incidence="true" transmission="true" progression="true" treatment="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa" progression="true" treatment="true"/>
+      <flows dim="SES"/>
+      <flows dim="RISK"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa>
+    <VXa.stages>
+      <stage name="none"/>
+      <stage name="TPT" />
+      <stage name="TPTcount" />
+    </VXa.stages>
+        <VXa.progression>
+        <age.groups>
+        <age.group name="A0"/> 
+        <age.group name="A15"/> 
+      </age.groups>
+      <!--NEVER TREATED-->
+      <VXa.parameter TB.stage="Un" name="toTPT" value="0" /> 
+      <VXa.parameter TB.stage="Uc" name="toTPT" value="0" /><!-- why 2 ??? -->
+      <VXa.parameter TB.stage="R" name="toTPT" value="0" />
+      <VXa.parameter TB.stage="Lf" name="toTPT" value="1" />
+      <VXa.parameter TB.stage="Ls" name="toTPT" value="1" />
+      <VXa.parameter TB.stage="Ds" name="toTPT" value="0" />
+      <VXa.parameter TB.stage="Dc" name="toTPT" value="0" />
+      <VXa.parameter TB.stage="T" name="toTPT" value="0" />
+      <VXa.parameter TB.stage="TBdead" name="toTPT" value="0" />
+      <VXa.parameter TB.stage="Rdead" name="toTPT" value="0" />
+      <VXa.parameter name="hhsize_1" value="3.4"/>
+      <VXa.parameter age.group="A0" name="ageTPT" value="1"/>
+      <VXa.parameter age.group="A15" name="ageTPT" value="1"/>
+      <VXa.parameter name="TPTdur" value="0.5"/><!-- e.g. 0.5 year duration of TPT -->
+<VXa.parameter name="factorLfLsinHHDc" value="4"/>
+<VXa.parameter name="covandcomp" value="0.7"/>
+<VXa.parameter name="tau" value="0.5"/><!-- from TB treatment duration -->
+
+
+      <transition.matrix>
+        <transition from="TPT" to="none" rate="1/TPTdur"/>
+      </transition.matrix>
+      <treatment.matrix name="initTPT"> 
+        <transition from="none" to="TPT" rate="toTPT*ageTPT"/>
+        <transition from="none" to="TPTcount" rate="toTPT*ageTPT"/>
+        <multiplier name="tptmul" times="2000,2025,2030" values="0,0,0"/>
+      </treatment.matrix> 
+      <!--treatment.matrix name="hhTPT" trigger="TB:T"> 
+        <transition from="none" to="TPT" rate="toTPT*ageTPT"/>
+        <transition from="none" to="TPTcount" rate="toTPT*ageTPT"/>
+        <multiplier name="tptmul" times="2000,2025,2030" values="0,0,4*factorLfLsinHHDc*covandcomp*hhsize_1"/>
+      </treatment.matrix--> 
+      <!--treatment.matrix name="allTPT"> 
+        <transition from="none" to="TPT" rate="etatpt*toTPT*ageTPT"/>
+        <transition from="none" to="TPTcount" rate="etatpt*toTPT*ageTPT"/>
+        <multiplier name="etatptmul" times="1980:2030" values="0/(1+exp(-shtpt*(x-midxtpt)))"/>
+      </treatment.matrix--> 
+    </VXa.progression>
+  </VXa>
+  <SES>
+    <SES.stages>
+      <stage name="male" fraction.at.birth="0.5"/>
+      <stage name="female" fraction.at.birth="0.5"/>
+    </SES.stages>
+  </SES>
+  <RISK>
+    <RISK.stages>
+      <stage name="risk0"/>
+    </RISK.stages>
+  </RISK>
+  <HIV>
+    <HIV.stages>
+      <stage name="HIV-" fraction.at.birth="1"/>
+    </HIV.stages>
+  </HIV>
+  <TB>
+    <TB.stages>
+      <stage name="Un" fraction.at.birth="1"/>
+      <stage name="Uc"/>
+      <stage name="Lf"/>
+      <stage name="Ls"/>
+      <stage name="Ds"/>
+      <stage name="Dc"/>
+      <stage name="T"/>
+      <stage name="R"/>
+      <stage name="TBdead"/>
+      <stage name="Rdead"/>
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1.84">
+      <seeded.infection fraction="0.246" age.from="0" age.thru="99" stage="Uc"/>
+      <seeded.infection fraction="0.0188" age.from="0" age.thru="99" stage="Lf"/>
+      <seeded.infection fraction="0.198" age.from="0" age.thru="99" stage="Ls"/>
+      <seeded.infection fraction="0.00317" age.from="0" age.thru="99" stage="Ds"/>
+      <seeded.infection fraction="0.00265" age.from="0" age.thru="99" stage="Dc"/>
+      <seeded.infection fraction="0.0484" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+    <TB.progression>
+      <age.groups>
+        <age.group name="A0"/>
+        <age.group name="A15"/>
+        <age.group name="A25"/>
+        <age.group name="A45"/>
+      </age.groups>
+      <TB.parameter SES.stage="male" name="pE" value="0"/>
+      <TB.parameter SES.stage="female" name="pE" value="0.39299141798339"/>
+      <TB.parameter name="sage" age.group="A0" value="1"/>
+      <TB.parameter name="sage" age.group="A15" value="0.820880884115873"/>
+      <TB.parameter name="sage" age.group="A25" value="0.18437041325881"/>
+      <TB.parameter name="sage" age.group="A45" value="0.18437041325881"/>
+      <TB.parameter name="j1" age.group="A0" value="0.707861288248564"/>
+      <TB.parameter name="j1" age.group="A15" value="1"/>
+      <TB.parameter name="j1" age.group="A25" value="1"/>
+      <TB.parameter name="j1" age.group="A45" value="1"/>
+      <TB.parameter name="j2" age.group="A0" value="0.6"/>
+      <TB.parameter name="j2" age.group="A15" value="1"/>
+      <TB.parameter name="j2" age.group="A25" value="1"/>
+      <TB.parameter name="j2" age.group="A45" value="1"/>
+      <TB.parameter name="j3" age.group="A0" value="0.0499963908809169"/>
+      <TB.parameter name="j3" age.group="A15" value="1"/>
+      <TB.parameter name="j3" age.group="A25" value="1"/>
+      <TB.parameter name="j3" age.group="A45" value="1"/>
+      <TB.parameter name="j4" age.group="A0" value="0.182402831934883"/>
+      <TB.parameter name="j4" age.group="A15" value="2.59992936858585"/>
+      <TB.parameter name="j4" age.group="A25" value="1"/>
+      <TB.parameter name="j4" age.group="A45" value="1"/>
+      <TB.parameter name="j5" age.group="A0" value="0"/>
+      <TB.parameter name="j5" age.group="A15" value="0"/>
+      <TB.parameter name="j5" age.group="A25" value="0"/>
+      <TB.parameter name="j5" age.group="A45" value="1"/>
+      <TB.parameter name="j5sex" SES.stage="male" value="1"/>
+      <TB.parameter name="j5sex" SES.stage="female" value="0"/>
+
+      <TB.parameter name="phiF" value="1.4e-06"/>
+      <TB.parameter name="omega" value="0.5"/>
+      <TB.parameter name="tau" value="0.5"/>
+      <TB.parameter name="phiS" value="0.0407250242185256"/>
+      <TB.parameter name="theta" value="0.0921328726528416"/>
+      <TB.parameter name="sigma" value="0.00125300043525109"/>
+      <TB.parameter name="rho" value="0.087058901627347"/>
+      <TB.parameter name="zeta" value="1.03562685090288"/>
+      <TB.parameter name="chi" value="0.172770290562261"/>
+      <TB.parameter name="eta" value="0.807637286837123"/>
+      <TB.parameter name="kappa" value="0.141117683668316"/>
+      <!-- COUNTRY SPECIFIC VALUE-->
+      <TB.parameter SES.stage="female" name="sfr" value="0.97485822"/>
+      <TB.parameter SES.stage="male" name="sfr" value="0.896841467223548"/>
+      <!-- COUNTRY SPECIFIC VALUE-->
+      <TB.parameter name="muK" value="0.0156746301235888"/>
+      <TB.parameter name="muDc" value="0.312670123525067"/>
+      <TB.parameter name="sh" value="0.310929507367745"/>
+      <TB.parameter name="midx" value="1994.58502202668"/>
+      <TB.parameter VXa.stage="none"    name="ontpt"       value="0"/>
+      <TB.parameter VXa.stage="TPT"    name="ontpt"       value="1"/>
+      <TB.parameter VXa.stage="TPTcount"    name="ontpt"       value="0"/>
+      <TB.parameter VXa.stage="none"    name="curedbytpt"       value="0"/>
+      <TB.parameter VXa.stage="TPT"    name="curedbytpt"       value="1"/>
+      <TB.parameter VXa.stage="TPTcount"    name="curedbytpt"       value="0"/>
+      <TB.parameter name="TPTdur" value="0.5"/><!-- e.g. 0.5 year duration of TPT -->
+
+      <transition.matrix>
+        <transition from="Lf" to="Ls" rate="omega"/>
+        <transition from="Lf" to="Uc" rate="phiF"/>
+        <transition from="Ls" to="Uc" rate="phiS"/>
+        <transition from="Ds" to="Dc" rate="zeta*(1-ontpt)"/>
+        <transition from="Ds" to="R" rate="chi"/>
+        <transition from="Dc" to="R" rate="chi"/>
+        <transition from="Dc" to="TBdead" rate="muDc*sage"/>
+        <transition from="R" to="Rdead" rate="muK*sage*0.22"/>
+      </transition.matrix>
+      <!-- INDVIDUAL INC FLOW MATRIX : to get required flows-->
+      <!-- modified by chris 09.12.2020-->
+      <treatment.matrix name="curedbyTPT">
+        <transition from="Lf" to="Un" rate="curedbytpt/TPTdur"/>
+        <transition from="Ls" to="Un" rate="curedbytpt/TPTdur"/>
+      </treatment.matrix>
+      <treatment.matrix name="LfLsRDs">
+        <transition from="Lf" to="Ds" rate="(1-ontpt)*(1-pE)*max(0.0696,theta*j1)"/>
+        <transition from="Ls" to="Ds" rate="(1-ontpt)*(1-pE)*max(0.000135,sigma*j2)"/>
+        <transition from="R" to="Ds" rate="(1-ontpt)*(1-pE)*max(0.01,rho*j3)"/>
+      </treatment.matrix>
+      <!-- TREATMENT INITIATION MATRIX -->
+      <treatment.matrix name="initACF">
+        <transition from="Ds" to="T" rate="2*eta"/><!--*j5*j5sex"-->
+        <multiplier name="etamul" times="2025,2030,2050" values="0,1,1"/>
+      </treatment.matrix>      
+      <treatment.matrix name="init">
+        <transition from="Dc" to="T" rate="eta*j4"/>
+        <multiplier name="etamul" times="1959:2019" values="1/(1+exp(-sh*(x-midx)))"/>
+      </treatment.matrix>
+      <!-- TREATMENT SUCCESS/FAILURE/MORTALITY - MAY VARY BY COUNTRY-->
+      <treatment.matrix name="nodead">
+        <transition from="T" to="Dc" rate="(1-sfr)/tau"/>
+        <transition from="T" to="R" rate="sfr/tau"/>
+      </treatment.matrix>
+      <treatment.matrix name="died">
+        <transition from="T" to="Dc" rate="-(1-sfr)*kappa*sage/tau"/>
+        <transition from="T" to="R" rate="-sfr*kappa*sage/tau"/>
+        <transition from="T" to="TBdead" rate="kappa*sage/tau"/>
+      </treatment.matrix>
+    </TB.progression>
+    <TB.infectivity>
+      <age.groups>
+        <age.group name="A0"/>
+        <age.group name="A15"/>
+      </age.groups>
+      <TB.parameter name="infs" value="0.8"/>
+      <TB.parameter name="infc" value="1"/>
+      <TB.parameter name="ep" value="0.113628517"/>
+      <!-- COUNTRY SPECIFIC VALUE-->
+      <infectivity.matrix Mtb-strain="drugsens">
+        <infectivity stage="Ds" value="(1-ep)*infs"/>
+        <infectivity stage="Dc" value="(1-ep)*infc"/>
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+      <age.groups>
+        <age.group name="A0"/>
+        <age.group name="A15"/>
+      </age.groups>
+      <TB.parameter SES.stage="male" name="pE" value="0"/>
+      <TB.parameter SES.stage="female" name="pE" value="0.39299141798339"/>
+      <TB.parameter name="pT" value="0.00040398626855466"/>
+      <TB.parameter name="pC" value="0.5"/>
+      <TB.parameter name="pR" value="0.834999481013895"/>
+      <TB.parameter name="omega" value="0.5"/>
+      <TB.parameter name="theta" value="0.0921328726528416"/>
+      <TB.parameter name="j1" age.group="A0" value="0.707861288248564"/>
+      <TB.parameter name="j1" age.group="A15" value="1"/>
+      <transmission.matrix Mtb-strain="drugsens">
+        <transition from="Un" to="Lf" rate="(1-pE)*pT"/>
+        <transition from="Uc" to="Lf" rate="(1-pE)*pT*(1-pR*pC)"/>
+        <transition from="Ls" to="Lf" rate="(1-pE)*pT*(1-pR)"/>
+        <transition from="R" to="Ds" rate="(1-pE)*pT*(max(0.0696,j1*theta)/(max(0.0696,j1*theta)+omega))*(1-pR)"/>
+        <multiplier name="beta" times="1800,2020" values="1,1"/>
+      </transmission.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>

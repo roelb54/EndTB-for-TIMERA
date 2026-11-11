@@ -1,0 +1,11 @@
+country,iso2,iso3,iso_numeric,g_whoregion,year,tb_from_screen_available,newinc_from_screen,screen_data_available,newinc_con,newinc_con_screen,newinc_con_tb,rev_newinc,rev_newinc_con,rev_newinc_con_screen,rev_newinc_con_tb,prevtx_data_available,newinc_con_prevtx,newinc_con04_prevtx,ptsurvey_newinc,ptsurvey_newinc_con_prevtx,ptsurvey_newinc_con04_prevtx,newinc_con_prevtx_cmplt,prevtx_short_data_available,tpt_short_regimens_used,tpt_1hp,tpt_3hp,tpt_3hr,tpt_4r,prevtx_short_rifamycin,tpt_rifapentine_tx,tpt_6lfx,prevtx_5plus_data_available,newinc_con5plus_prevtx,ptsurvey_newinc_5plus,ptsurvey_newinc_con5plus_prevtx
+Nigeria,NG,NGA,566,AFR,2015,,,,,,,,,,,60,,6254,,,,,,,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2016,,,,,,,,,,,60,,8562,,,,,,,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2017,,,,,,,,,,,60,,10258,,,,,,,,,,,,,,0,,,
+Nigeria,NG,NGA,566,AFR,2018,,,,,,,,,,,60,10522,10522,,,,,0,,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2019,,,60,20370,17983,,,,,,60,10788,9772,,,,8796,0,,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2020,,,60,22169,19781,,,,,,60,9730,8825,,,,8020,194,,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2021,,,60,103728,83858,,,,,,60,17517,13097,,,,14755,,0,,,,,,,,,,,
+Nigeria,NG,NGA,566,AFR,2022,,,60,366537,345219,9539,,,,,60,111755,35365,,,,104999,,1,0,1,1,0,,,,,,,
+Nigeria,NG,NGA,566,AFR,2023,1,18974,1,635048,598529,18974,,,,,1,296441,83955,,,,272873,,1,1,1,1,0,53016,,0,,,,
+Nigeria,NG,NGA,566,AFR,2024,1,70727,1,751449,726005,9245,,,,,1,422828,95632,,,,,,1,1,1,1,0,173190,82620,0,,,,

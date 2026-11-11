@@ -1,0 +1,230 @@
+year	xVXa	xSES	xRISK	xHIV	xTB	xtype	xcause	yVXa	ySES	yRISK	yHIV	yTB	ytype	ycause	fn	age_from	age_thru	value	lo	hi	err	name	type	model	fit	residuals	weighted_residuals
+2021.5	all	all	all	all	Ds	stock	NA	all	all	all	all	Ds,Dc	stock	NA	x/y	15	99	0.504	0.361	0.797	0.218	TB_subclinpr_15_99	ratio	0.198241940198282	FALSE	-0.305758059801718	-1.40255990734733
+2019.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	14	35.72614871	20.54253551	49.12345448	14.29045948	TB_inci_0_14	inci	30.1159216179419	TRUE	-5.61022709205814	-0.392585493833131
+2019.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	15	99	218.7133697	126.9077577	311.8690642	92.48065325	TB_inci_15_99	inci	180.307846872319	TRUE	-38.4055228276814	-0.415281699231308
+1996.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	138	69	207	69	TB_notif_0_99	inci	188.471413907426	TRUE	50.4714139074261	0.731469766774292
+1997.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	143	72	215	72	TB_notif_0_99	inci	185.268311460953	TRUE	42.2683114609528	0.587059881402123
+1998.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	161	81	242	81	TB_notif_0_99	inci	182.745536739138	TRUE	21.7455367391375	0.268463416532562
+1999.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	162	81	243	81	TB_notif_0_99	inci	180.603224643621	TRUE	18.6032246436207	0.2296694400447
+2000.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	163	82	245	82	TB_notif_0_99	inci	178.737504747237	TRUE	15.7375047472374	0.191920789600456
+2001.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	165	83	248	83	TB_notif_0_99	inci	176.687740102419	TRUE	11.6877401024186	0.140816145812273
+2002.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	177	89	266	89	TB_notif_0_99	inci	174.38492801539	TRUE	-2.61507198460993	-0.029382831287752
+2003.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	171	86	257	86	TB_notif_0_99	inci	172.373960496788	TRUE	1.3739604967885	0.0159762848463779
+2004.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	182	91	273	91	TB_notif_0_99	inci	170.483868833093	TRUE	-11.5161311669072	-0.126550891944035
+2005.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	175	88	263	88	TB_notif_0_99	inci	168.743192066905	TRUE	-6.25680793309496	-0.0711000901488064
+2006.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	180	90	270	90	TB_notif_0_99	inci	167.09700354721	TRUE	-12.9029964527899	-0.143366627253221
+2007.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	178	89	267	89	TB_notif_0_99	inci	166.118440641266	TRUE	-11.8815593587341	-0.133500666952069
+2008.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	178	89	267	89	TB_notif_0_99	inci	165.239207800501	TRUE	-12.7607921994987	-0.143379687634816
+2009.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	175	88	263	88	TB_notif_0_99	inci	164.35422274975	TRUE	-10.6457772502499	-0.120974741480112
+2010.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	174	87	261	87	TB_notif_0_99	inci	163.004410778691	TRUE	-10.9955892213088	-0.126386083003549
+2011.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	176	88	264	88	TB_notif_0_99	inci	161.654193356808	TRUE	-14.345806643192	-0.163020530036273
+2012.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	180	90	270	90	TB_notif_0_99	inci	160.005427547608	TRUE	-19.9945724523924	-0.222161916137694
+2013.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	174	87	261	87	TB_notif_0_99	inci	158.446920750749	TRUE	-15.5530792492512	-0.178771025853462
+2014.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	173	87	260	87	TB_notif_0_99	inci	156.866399160978	TRUE	-16.1336008390218	-0.185443687804848
+2015.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	99	174	87	261	87	TB_notif_0_99	inci	155.316427602902	TRUE	-18.6835723970981	-0.214753705713771
+1996.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	69	35	104	35	TB_notif_0_99	inci	58.7360664187072	TRUE	-10.2639335812928	-0.293255245179795
+1997.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	70	35	105	35	TB_notif_0_99	inci	57.7299415202428	TRUE	-12.2700584797572	-0.350573099421635
+1998.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	75	38	113	38	TB_notif_0_99	inci	56.9363745510315	TRUE	-18.0636254489685	-0.47535856444654
+1999.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	75	38	113	38	TB_notif_0_99	inci	56.2759799264848	TRUE	-18.7240200735152	-0.492737370355663
+2000.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	73	37	110	37	TB_notif_0_99	inci	55.7259139754516	TRUE	-17.2740860245484	-0.466867189852658
+2001.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	72	36	108	36	TB_notif_0_99	inci	55.1557162480795	TRUE	-16.8442837519205	-0.467896770886679
+2002.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	70	35	105	35	TB_notif_0_99	inci	54.5558777452986	TRUE	-15.4441222547014	-0.441260635848611
+2003.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	67	34	101	34	TB_notif_0_99	inci	54.019437634735	TRUE	-12.980562365265	-0.381781246037206
+2004.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	68	34	102	34	TB_notif_0_99	inci	53.4890333315806	TRUE	-14.5109666684194	-0.426793137306454
+2005.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	64	32	96	32	TB_notif_0_99	inci	53.003602554974	TRUE	-10.996397445026	-0.343637420157062
+2006.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	63	32	95	32	TB_notif_0_99	inci	52.532797066665	TRUE	-10.467202933335	-0.327100091666718
+2007.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	63	32	95	32	TB_notif_0_99	inci	52.0368509618273	TRUE	-10.9631490381727	-0.342598407442898
+2008.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	62	31	93	31	TB_notif_0_99	inci	51.5608929291041	TRUE	-10.4391070708959	-0.336745389383738
+2009.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	59	30	89	30	TB_notif_0_99	inci	51.0883031862224	TRUE	-7.91169681377761	-0.26372322712592
+2010.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	59	30	89	30	TB_notif_0_99	inci	50.6922630890277	TRUE	-8.30773691097226	-0.276924563699075
+2011.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	58	29	87	29	TB_notif_0_99	inci	50.3025339470341	TRUE	-7.69746605296586	-0.265429863895374
+2012.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	59	30	89	30	TB_notif_0_99	inci	49.8366879772404	TRUE	-9.1633120227596	-0.305443734091987
+2013.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	58	29	87	29	TB_notif_0_99	inci	49.3796685501387	TRUE	-8.62033144986133	-0.297252808615908
+2014.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	57	29	86	29	TB_notif_0_99	inci	48.9310778020854	TRUE	-8.0689221979146	-0.278238696479814
+2015.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	99	55	28	83	28	TB_notif_0_99	inci	48.4584789285469	TRUE	-6.54152107145305	-0.233625752551895
+2000.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	296	90	624	267	TB_inci_0_99	e_inc_100k	174.275616584266	TRUE	-121.724383415734	-0.455896567100126
+2001.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	290	95	592	267	TB_inci_0_99	e_inc_100k	172.162227805281	TRUE	-117.837772194719	-0.441339970766739
+2002.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	284	100	563	267	TB_inci_0_99	e_inc_100k	169.849698998499	TRUE	-114.150301001501	-0.427529217234086
+2003.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	278	105	535	267	TB_inci_0_99	e_inc_100k	167.74565467276	TRUE	-110.25434532724	-0.412937622948465
+2004.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	272	109	509	267	TB_inci_0_99	e_inc_100k	165.705865255354	TRUE	-106.294134744646	-0.398105373575453
+2005.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	266	113	484	185.5	TB_inci_0_99	e_inc_100k	163.848786610961	TRUE	-102.151213389039	-0.550680395628243
+2006.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	260	116	460	185.5	TB_inci_0_99	e_inc_100k	162.069935579175	TRUE	-97.9300644208254	-0.527924875583964
+2007.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	253	119	437	185.5	TB_inci_0_99	e_inc_100k	160.604664881303	TRUE	-92.3953351186974	-0.49808805993907
+2008.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	246	119	417	185.5	TB_inci_0_99	e_inc_100k	159.239394168397	TRUE	-86.7606058316028	-0.467712160817266
+2009.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	239	119	398	185.5	TB_inci_0_99	e_inc_100k	157.891926779763	TRUE	-81.1080732202372	-0.437240286901548
+2010.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	231	119	380	130.5	TB_inci_0_99	e_inc_100k	156.497050255977	TRUE	-74.5029497440234	-0.570903829456118
+2011.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	225	119	363	130.5	TB_inci_0_99	e_inc_100k	155.1144789558	TRUE	-69.8855210441998	-0.535521234055171
+2012.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	218	119	346	130.5	TB_inci_0_99	e_inc_100k	153.506193896911	TRUE	-64.4938061030895	-0.494205410751644
+2013.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	212	119	331	130.5	TB_inci_0_99	e_inc_100k	151.963868938754	TRUE	-60.0361310612462	-0.460046981312232
+2014.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	205	118	317	130.5	TB_inci_0_99	e_inc_100k	150.437853195782	TRUE	-54.5621468042176	-0.418100741794771
+2015.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	199	117	303	93	TB_inci_0_99	e_inc_100k	148.890748929833	TRUE	-50.1092510701672	-0.538809151292121
+2016.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	193	116	290	93	TB_inci_0_99	e_inc_100k	147.480906109899	TRUE	-45.5190938901007	-0.489452622474201
+2017.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	188	115	278	93	TB_inci_0_99	e_inc_100k	145.805648330582	TRUE	-42.1943516694176	-0.45370270612277
+2018.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	182	114	265	93	TB_inci_0_99	e_inc_100k	144.405853548598	TRUE	-37.5941464514016	-0.404238133886038
+2019.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	176	112	255	93	TB_inci_0_99	e_inc_100k	143.355416426607	TRUE	-32.6445835733929	-0.351017027670891
+2020.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	172	109	246	68.5	TB_inci_0_99	e_inc_100k	142.579708975672	TRUE	-29.4202910243277	-0.429493299625221
+2021.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	169	107	238	65.5	TB_inci_0_99	e_inc_100k	141.98233773135	TRUE	-27.0176622686496	-0.412483393414498
+2022.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	178	112	254	71	TB_inci_0_99	e_inc_100k	141.223141418682	TRUE	-36.7768585813184	-0.517983923680541
+2023.5	all	all	all	all	Ds	inflow	Tm_drugsens,TBp, TBtr_LfLsRDs	all	all	all	all	all	stock	NA	1e5*x/y	0	99	182	113	264	75.5	TB_inci_0_99	e_inc_100k	140.73124704715	TRUE	-41.2687529528498	-0.546605999375494
+2000.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	37	18	56	19	TB_deaths_0_99	inci	18.1055845713334	TRUE	-18.8944154286666	-0.994442917298241
+2001.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	35	17	53	18	TB_deaths_0_99	inci	17.7237783336377	TRUE	-17.2762216663623	-0.959790092575684
+2002.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	32	16	48	16	TB_deaths_0_99	inci	17.3418922627196	TRUE	-14.6581077372804	-0.916131733580026
+2003.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	32	16	48	16	TB_deaths_0_99	inci	16.9681758195279	TRUE	-15.0318241804721	-0.939489011279509
+2004.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	28	14	42	14	TB_deaths_0_99	inci	16.6033324204255	TRUE	-11.3966675795745	-0.814047684255323
+2005.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	28	14	42	14	TB_deaths_0_99	inci	16.2623394000298	TRUE	-11.7376605999702	-0.838404328569298
+2006.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	26	13	39	13	TB_deaths_0_99	inci	15.9515378434965	TRUE	-10.0484621565035	-0.772958627423347
+2007.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	25	13	38	13	TB_deaths_0_99	inci	15.5633135325211	TRUE	-9.43668646747888	-0.725898959036837
+2008.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	23	12	35	12	TB_deaths_0_99	inci	15.1791810381883	TRUE	-7.82081896181175	-0.651734913484312
+2009.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	22	11	33	11	TB_deaths_0_99	inci	14.8184122547527	TRUE	-7.18158774524735	-0.652871613204304
+2010.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	21	11	32	11	TB_deaths_0_99	inci	14.5484831394318	TRUE	-6.45151686056824	-0.586501532778931
+2011.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	19	10	29	10	TB_deaths_0_99	inci	14.3146614408916	TRUE	-4.68533855910837	-0.468533855910837
+2012.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	17	9	26	9	TB_deaths_0_99	inci	14.0972430718606	TRUE	-2.90275692813938	-0.322528547571042
+2013.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	17	9	26	9	TB_deaths_0_99	inci	13.8678727926944	TRUE	-3.13212720730563	-0.34801413414507
+2014.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	16	8	24	8	TB_deaths_0_99	inci	13.6373469494667	TRUE	-2.3626530505333	-0.295331631316662
+2015.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	15	8	23	8	TB_deaths_0_99	inci	13.3735114630612	TRUE	-1.62648853693876	-0.203311067117345
+2016.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	13	7	20	7	TB_deaths_0_99	inci	13.0707999702934	TRUE	0.0707999702933542	0.0101142814704792
+2017.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	12	6	18	6	TB_deaths_0_99	inci	12.653490992124	TRUE	0.653490992123984	0.108915165353997
+2018.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	11	6	17	6	TB_deaths_0_99	inci	12.317157141848	TRUE	1.31715714184802	0.219526190308004
+2019.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	9.8	5	15	5	TB_deaths_0_99	inci	12.0771389054505	TRUE	2.27713890545052	0.455427781090105
+2020.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	8.9	4	13	4	TB_deaths_0_99	inci	11.9381973478761	TRUE	3.03819734787612	0.759549336969029
+2021.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	9.4	5	14	5	TB_deaths_0_99	inci	11.8085985666462	TRUE	2.40859856664619	0.481719713329237
+2022.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	11	6	17	6	TB_deaths_0_99	inci	11.7101450114782	TRUE	0.710145011478241	0.11835750191304
+2023.5	all	all	all	all	TBdead	inflow	TBp,TBtr_died	all	all	all	all	all	stock	NA	1e5*x/y	0	99	11	6	17	6	TB_deaths_0_99	inci	11.6530427643481	TRUE	0.65304276434814	0.10884046072469
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	0	99	266	117	477	180	TB_prevalence	prev a	249.610816591795	TRUE	-16.3891834082051	-0.0910510189344729
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	15	24	55	22	88	11	TB_prevalence	prev b	83.2230685532362	TRUE	28.2230685532362	2.56573350483966
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	25	34	136	63	210	24.66666667	TB_prevalence	prev b	196.769174130643	TRUE	60.7691741306432	2.46361516712559
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	35	44	321	222	420	99	TB_prevalence	prev b	344.525873007776	TRUE	23.5258730077756	0.237635080886622
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	45	54	344	228	460	116	TB_prevalence	prev b	480.383032842633	FALSE	136.383032842633	1.17571580036753
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	55	64	599	288	910	311	TB_prevalence	prev b	628.243189331958	TRUE	29.2431893319579	0.0940295476911829
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	65	99	764	492	1037	272.5	TB_prevalence	prev b	884.115425293962	TRUE	120.115425293962	0.440790551537475
+2007.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	15	99	307	249	366	58.5	TB_prevalence	prev b	322.333548942237	TRUE	15.333548942237	0.262111947730548
+2007.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	15	99	118	75	161	43	TB_prevalence	prev b	152.802085632033	TRUE	34.8020856320327	0.809350828651924
+2007.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	15	99	536	431	642	105.5	TB_prevalence	prev b	507.357037046259	TRUE	-28.6429629537407	-0.271497279182376
+2018.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	0	99	289	224	353	21.66666667	TB_prevalence	prev a	225.560824146366	TRUE	-63.4391758536339	-2.92796196202495
+2018.5	all	all	all	all	Ds, Dc	stock	NA	all	all	all	all	all	stock	NA	1e5*x/y	15	99	322	260	399	25.66666667	TB_prevalence	prev b	285.058165049598	TRUE	-36.9418349504022	-1.43929227060797
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	15	99	133	89	198	54.5	TB_prevalence	prev b	133.917759526661	TRUE	0.917759526661257	0.0168396243424084
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	15	99	522	420	648	42	TB_prevalence	prev b	447.85511016645	TRUE	-74.1448898335504	-1.76535451984644
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	15	24	72	48	96	24	TB_prevalence	prev b	121.583277768293	FALSE	49.5832777682934	2.06596990701223
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	25	34	344	229	459	115	TB_prevalence	prev b	260.781457354017	TRUE	-83.2185426459826	-0.723639501269414
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	35	44	405	270	540	135	TB_prevalence	prev b	424.10763949211	TRUE	19.1076394921099	0.141538070311925
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	45	54	683	455	911	228	TB_prevalence	prev b	610.96540363744	TRUE	-72.0345963625599	-0.315941212116491
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	55	64	920	613	1227	307	TB_prevalence	prev b	789.123998515372	TRUE	-130.876001484628	-0.426306193761004
+2018.5	all	male	all	all	Ds, Dc	stock	NA	all	male	all	all	all	stock	NA	1e5*x/y	65	99	1240	827	1653	413	TB_prevalence	prev b	1162.39099258866	TRUE	-77.6090074113426	-0.187915272182428
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	15	24	46	31	61	15	TB_prevalence	prev b	43.8206670458183	TRUE	-2.17933295418174	-0.145288863612116
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	25	34	81	54	108	27	TB_prevalence	prev b	84.9629717462359	TRUE	3.96297174623587	0.146776731342069
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	35	44	180	120	240	60	TB_prevalence	prev b	123.331203252616	TRUE	-56.6687967473839	-0.944479945789731
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	45	54	112	75	149	37	TB_prevalence	prev b	161.929045296028	FALSE	49.9290452960283	1.34943365664941
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	55	64	151	101	201	50	TB_prevalence	prev b	197.309462836784	TRUE	46.3094628367838	0.926189256735676
+2018.5	all	female	all	all	Ds, Dc	stock	NA	all	female	all	all	all	stock	NA	1e5*x/y	65	99	205	137	273	68	TB_prevalence	prev b	293.355557531106	FALSE	88.3555575311059	1.29934643428097
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	9	2	16	7	TB_notif_0_99	inci	5.17810103114255	TRUE	-3.82189896885745	-0.545985566979636
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	8	2	14	6	TB_notif_0_99	inci	5.09885593853051	TRUE	-2.90114406146949	-0.483524010244915
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	7	2	12	5	TB_notif_0_99	inci	5.07779617273105	TRUE	-1.92220382726895	-0.38444076545379
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	8	2	14	6	TB_notif_0_99	inci	5.08581516200274	TRUE	-2.91418483799726	-0.485697472999543
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	6	2	11	5	TB_notif_0_99	inci	5.08489005817979	TRUE	-0.915109941820212	-0.183021988364042
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	3	1	5	2	TB_notif_0_99	inci	5.08020170800058	FALSE	2.08020170800058	1.04010085400029
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	4	1	7	3	TB_notif_0_99	inci	5.0828154767054	TRUE	1.0828154767054	0.360938492235135
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	0	14	5	1	9	4	TB_notif_0_99	inci	5.10474631666913	TRUE	0.104746316669126	0.0261865791672815
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	72	36	108	36	TB_notif_0_99	inci	49.0761452164613	TRUE	-22.9238547835387	-0.636773743987186
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	85	43	128	43	TB_notif_0_99	inci	49.0555181294509	TRUE	-35.9444818705491	-0.835918183036025
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	77	39	116	39	TB_notif_0_99	inci	49.0721718539453	TRUE	-27.9278281460547	-0.716098157591147
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	76	38	114	38	TB_notif_0_99	inci	49.0564003643424	TRUE	-26.9435996356576	-0.709042095675199
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	70	35	105	35	TB_notif_0_99	inci	49.0228562358941	TRUE	-20.9771437641059	-0.59934696468874
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	51	26	77	26	TB_notif_0_99	inci	48.8516201182037	TRUE	-2.14837988179626	-0.0826299954537023
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	62	31	93	31	TB_notif_0_99	inci	48.5140908581899	TRUE	-13.4859091418101	-0.435029327155164
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	15	24	59	30	89	30	TB_notif_0_99	inci	48.0255841890653	TRUE	-10.9744158109347	-0.36581386036449
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	214	107	321	107	TB_notif_0_99	inci	118.98777441104	TRUE	-95.0122255889597	-0.887964725130464
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	138	69	207	69	TB_notif_0_99	inci	117.70026173975	TRUE	-20.2997382602504	-0.29419910522102
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	127	64	191	64	TB_notif_0_99	inci	116.9045610132	TRUE	-10.0954389868005	-0.157741234168757
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	127	64	191	64	TB_notif_0_99	inci	116.638965216869	TRUE	-10.3610347831313	-0.161891168486427
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	118	59	177	59	TB_notif_0_99	inci	116.839602571854	TRUE	-1.16039742814634	-0.0196677530194295
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	91	46	137	46	TB_notif_0_99	inci	117.54263788425	TRUE	26.5426378842502	0.577013867048917
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	112	56	168	56	TB_notif_0_99	inci	118.432962117611	TRUE	6.43296211761107	0.114874323528769
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	25	34	108	54	162	54	TB_notif_0_99	inci	119.446737237206	TRUE	11.4467372372059	0.211976615503813
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	210	105	315	105	TB_notif_0_99	inci	199.589126986575	TRUE	-10.4108730134246	-0.0991511715564251
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	189	95	284	95	TB_notif_0_99	inci	195.931949710395	TRUE	6.93194971039492	0.0729678916883676
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	178	89	267	89	TB_notif_0_99	inci	192.083796840173	TRUE	14.0837968401728	0.158244908316548
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	179	90	269	90	TB_notif_0_99	inci	188.38759814768	TRUE	9.38759814768034	0.104306646085337
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	167	84	251	84	TB_notif_0_99	inci	184.869667236021	TRUE	17.8696672360212	0.212734133762157
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	123	62	185	62	TB_notif_0_99	inci	181.591000027871	TRUE	58.5910000278712	0.945016129481794
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	161	81	242	81	TB_notif_0_99	inci	178.791205981522	TRUE	17.7912059815218	0.219644518290392
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	35	44	150	75	225	75	TB_notif_0_99	inci	176.716258281048	TRUE	26.7162582810484	0.356216777080646
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	289	145	434	145	TB_notif_0_99	inci	289.976677862224	TRUE	0.976677862224278	0.00673570939465019
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	286	143	429	143	TB_notif_0_99	inci	283.96291012399	TRUE	-2.03708987601044	-0.0142453837483248
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	274	137	411	137	TB_notif_0_99	inci	277.842750784413	TRUE	3.84275078441271	0.028049275798633
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	272	136	408	136	TB_notif_0_99	inci	272.19035274016	TRUE	0.190352740159824	0.00139965250117518
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	260	130	390	130	TB_notif_0_99	inci	266.813832678157	TRUE	6.81383267815659	0.0524140975242814
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	199	100	299	100	TB_notif_0_99	inci	261.608087040891	TRUE	62.6080870408913	0.626080870408913
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	263	132	395	132	TB_notif_0_99	inci	256.742509299268	TRUE	-6.25749070073226	-0.047405232581305
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	45	54	255	128	383	128	TB_notif_0_99	inci	252.149606574376	TRUE	-2.85039342562436	-0.0222686986376903
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	345	173	518	173	TB_notif_0_99	inci	374.963101179886	TRUE	29.9631011798862	0.173197116646741
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	356	178	534	178	TB_notif_0_99	inci	367.113852512935	TRUE	11.113852512935	0.0624373736681742
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	351	176	527	176	TB_notif_0_99	inci	359.485084976293	TRUE	8.48508497629257	0.0482107100925714
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	351	176	527	176	TB_notif_0_99	inci	352.049280654232	TRUE	1.04928065423229	0.00596182189904711
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	332	166	498	166	TB_notif_0_99	inci	345.025620194924	TRUE	13.0256201949242	0.078467591535688
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	256	128	384	128	TB_notif_0_99	inci	338.454662608062	TRUE	82.4546626080622	0.644177051625486
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	342	171	513	171	TB_notif_0_99	inci	332.022170099802	TRUE	-9.97782990019778	-0.0583498824572969
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	55	64	363	182	545	182	TB_notif_0_99	inci	326.07181609578	TRUE	-36.9281839042204	-0.202902109363848
+2016.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	465	233	698	233	TB_notif_0_99	inci	572.340447240902	TRUE	107.340447240902	0.46068861476782
+2017.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	512	256	768	256	TB_notif_0_99	inci	550.917461952374	TRUE	38.9174619523737	0.15202133575146
+2018.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	471	236	707	236	TB_notif_0_99	inci	529.960045177939	TRUE	58.9600451779389	0.249830699906521
+2019.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	459	230	689	230	TB_notif_0_99	inci	509.476512748075	TRUE	50.4765127480753	0.219463098904675
+2020.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	457	229	686	229	TB_notif_0_99	inci	490.16452402039	TRUE	33.1645240203904	0.144823248997338
+2021.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	331	166	497	166	TB_notif_0_99	inci	473.543283149805	TRUE	142.543283149805	0.858694476806053
+2022.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	449	225	674	225	TB_notif_0_99	inci	457.318292959978	TRUE	8.31829295997807	0.0369701909332358
+2023.5	all	male	all	all	T	inflow	TBtr_init	all	male	all	all	all	stock	NA	1e5*x/y	65	99	486	243	729	243	TB_notif_0_99	inci	442.880854033361	TRUE	-43.1191459666388	-0.177445045130201
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	6	2	11	5	TB_notif_0_99	inci	2.12107810668644	TRUE	-3.87892189331356	-0.775784378662712
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	7	2	12	5	TB_notif_0_99	inci	2.08157137343217	TRUE	-4.91842862656783	-0.983685725313566
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	7	2	12	5	TB_notif_0_99	inci	2.06763394682115	TRUE	-4.93236605317885	-0.98647321063577
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	7	2	12	5	TB_notif_0_99	inci	2.06803678157105	TRUE	-4.93196321842895	-0.986392643685789
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	6	2	11	5	TB_notif_0_99	inci	2.06961282904425	TRUE	-3.93038717095575	-0.786077434191151
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	3	1	5	2	TB_notif_0_99	inci	2.07004156860013	TRUE	-0.929958431399866	-0.464979215699933
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	4	1	7	3	TB_notif_0_99	inci	2.07324152863005	TRUE	-1.92675847136995	-0.642252823789984
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	0	14	5	1	9	4	TB_notif_0_99	inci	2.0838495137557	TRUE	-2.9161504862443	-0.729037621561076
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	43	22	65	22	TB_notif_0_99	inci	17.6853777239747	FALSE	-25.3146222760253	-1.15066464891024
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	53	27	80	27	TB_notif_0_99	inci	17.6925258735795	FALSE	-35.3074741264205	-1.30768422690446
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	53	27	80	27	TB_notif_0_99	inci	17.7287470254943	FALSE	-35.2712529745057	-1.30634270275947
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	57	29	86	29	TB_notif_0_99	inci	17.7728972125402	FALSE	-39.2271027874598	-1.35265871680896
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	55	28	83	28	TB_notif_0_99	inci	17.8038751995817	FALSE	-37.1961248004183	-1.32843302858637
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	46	23	69	23	TB_notif_0_99	inci	17.7774847554043	FALSE	-28.2225152445957	-1.22706588019981
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	54	27	81	27	TB_notif_0_99	inci	17.6899240008424	FALSE	-36.3100759991576	-1.34481762959843
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	15	24	54	27	81	27	TB_notif_0_99	inci	17.5442705782908	FALSE	-36.4557294217092	-1.35021220080405
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	62	31	93	31	TB_notif_0_99	inci	38.8070135230205	TRUE	-23.1929864769795	-0.748160854096113
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	70	35	105	35	TB_notif_0_99	inci	38.4742488294463	TRUE	-31.5257511705537	-0.900735747730106
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	66	33	99	33	TB_notif_0_99	inci	38.192378444792	TRUE	-27.807621555208	-0.842655198642667
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	72	36	108	36	TB_notif_0_99	inci	37.997474370146	TRUE	-34.002525629854	-0.944514600829278
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	68	34	102	34	TB_notif_0_99	inci	37.9463499179238	TRUE	-30.0536500820762	-0.883930884766946
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	57	29	86	29	TB_notif_0_99	inci	38.0571712823122	TRUE	-18.9428287176878	-0.653200990265095
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	68	34	102	34	TB_notif_0_99	inci	38.2597604787984	TRUE	-29.7402395212016	-0.874712927094164
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	25	34	65	33	98	33	TB_notif_0_99	inci	38.5320689496178	TRUE	-26.4679310503822	-0.80205851667825
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	50	25	75	25	TB_notif_0_99	inci	58.0045590714742	TRUE	8.00455907147418	0.320182362858967
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	57	29	86	29	TB_notif_0_99	inci	57.0141136999639	TRUE	0.0141136999639215	0.000486679309100743
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	56	28	84	28	TB_notif_0_99	inci	55.9983419620645	TRUE	-0.00165803793549912	-5.92156405535401e-05
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	59	30	89	30	TB_notif_0_99	inci	55.0240919191671	TRUE	-3.97590808083293	-0.132530269361098
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	58	29	87	29	TB_notif_0_99	inci	54.0792332855352	TRUE	-3.92076671446478	-0.135198852222924
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	45	23	68	23	TB_notif_0_99	inci	53.1592589700304	TRUE	8.15925897003038	0.354750390001321
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	58	29	87	29	TB_notif_0_99	inci	52.3431811649146	TRUE	-5.65681883508536	-0.195062718451219
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	35	44	55	28	83	28	TB_notif_0_99	inci	51.7042254889865	TRUE	-3.29577451101348	-0.117706232536196
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	55	28	83	28	TB_notif_0_99	inci	76.9432749381558	TRUE	21.9432749381558	0.783688390648423
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	64	32	96	32	TB_notif_0_99	inci	75.3773545070056	TRUE	11.3773545070056	0.355542328343925
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	60	30	90	30	TB_notif_0_99	inci	73.8079677776605	TRUE	13.8079677776605	0.460265592588683
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	60	30	90	30	TB_notif_0_99	inci	72.3550526950198	TRUE	12.3550526950198	0.411835089833993
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	61	31	92	31	TB_notif_0_99	inci	70.9802712447676	TRUE	9.98027124476765	0.321944233702182
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	48	24	72	24	TB_notif_0_99	inci	69.6407898464451	TRUE	21.6407898464451	0.901699576935214
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	63	32	95	32	TB_notif_0_99	inci	68.3786919240154	TRUE	5.37869192401543	0.168084122625482
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	45	54	61	31	92	31	TB_notif_0_99	inci	67.1845099855252	TRUE	6.18450998552522	0.199500322113717
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	59	30	89	30	TB_notif_0_99	inci	94.0612168517253	FALSE	35.0612168517253	1.16870722839084
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	91	46	137	46	TB_notif_0_99	inci	91.9984716127142	TRUE	0.998471612714226	0.0217059046242223
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	85	43	128	43	TB_notif_0_99	inci	90.0573245217012	TRUE	5.05732452170122	0.117612198179098
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	88	44	132	44	TB_notif_0_99	inci	88.240333838694	TRUE	0.240333838694013	0.00546213269759122
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	82	41	123	41	TB_notif_0_99	inci	86.5444340139716	TRUE	4.54443401397155	0.110839853999306
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	64	32	96	32	TB_notif_0_99	inci	84.9178351124568	TRUE	20.9178351124568	0.653682347264274
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	85	43	128	43	TB_notif_0_99	inci	83.3206522003547	TRUE	-1.67934779964529	-0.0390545999917508
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	55	64	86	43	129	43	TB_notif_0_99	inci	81.8143671791764	TRUE	-4.18563282082357	-0.0973402981586877
+2016.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	140	70	210	70	TB_notif_0_99	inci	142.852661962496	TRUE	2.85266196249577	0.0407523137499396
+2017.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	151	76	227	76	TB_notif_0_99	inci	138.379420489652	TRUE	-12.6205795103482	-0.166060256715107
+2018.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	141	71	212	71	TB_notif_0_99	inci	133.877706379408	TRUE	-7.12229362059176	-0.100313994656222
+2019.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	137	69	206	69	TB_notif_0_99	inci	129.402577520735	TRUE	-7.59742247926494	-0.11010757216326
+2020.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	130	65	195	65	TB_notif_0_99	inci	125.021768055921	TRUE	-4.9782319440794	-0.0765881837550677
+2021.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	98	49	147	49	TB_notif_0_99	inci	121.001718607315	TRUE	23.0017186073154	0.469422828720723
+2022.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	129	65	194	65	TB_notif_0_99	inci	116.915290865438	TRUE	-12.0847091345618	-0.185918602070181
+2023.5	all	female	all	all	T	inflow	TBtr_init	all	female	all	all	all	stock	NA	1e5*x/y	65	99	136	68	204	68	TB_notif_0_99	inci	113.250902902117	TRUE	-22.7490970978834	-0.33454554555711

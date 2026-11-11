@@ -690,7 +690,7 @@ read.model.parameters=function(paths=NULL){
       #femaledeathfn         = create.approx.func.from.rownames(femaledeathrate)
       #femaledeathmultiplier = run.params$femaledeathrate.multiplier
     }
-    contacts       = create.contact.matrices(paths, environment())
+    #contacts       = create.contact.matrices(paths, environment())
     intervention.start.from = xml_attr(xml_find_all(xml$doc,"//simulation/options/intervention.start"),"from.incidence.data")
     if (length(intervention.start.from) == 0){
       intervention.start.from = NA
