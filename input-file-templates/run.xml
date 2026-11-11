@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.run.specification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./run.xsd">
+    <simulation from.year="1900" thru.year="2051" >
+      <options>
+        <numerical.integration method="ode23" hini="0."/>
+        <exceptional.conditions min.value.for.state.var="-1e-2"/>
+      </options>
+      <demography country.code="ignored">
+        <from.data>
+            <population  file = "/data/demographics.csv" />
+            <birthrate   from.population.data="true" /> <!-- if false: fraction="0.024" or number="5000" -->
+            <mortality   from.population.data="true" /> <!-- if false: file="./data/IN_mort_age.txt" -->
+        </from.data>
+        <!-- added useless comment except to check for no effect on SHA1 -->
+        <!-- 
+        <from.distribution>
+            <population  total="100000" fractions="./data/IN_initial_population_as_fraction.txt"/>
+            <birthrate   fraction="0.024" /> 
+            <mortality   file = "./data/IN_mort_age.txt"/>
+        </from.distribution>
+        -->
+      </demography>
+      <contact.matrix file = "/data/all_contacts.txt"/>
+      <incidence>
+        <!--<data file = "./data/HIV-incidence.txt"/>-->
+        <!--<data file = "./data/ART-incidence.txt"/>-->
+        <!--<data file = "./data/VXa-incidence.txt"/>-->
+      </incidence>
+      <seeded.infections>
+        <TB fraction="0.482" age.from="0" age.thru="99" stage="Un"/>
+        <TB fraction="0.246" age.from="0" age.thru="99" stage="Uc"/>
+        <TB fraction="0.0188" age.from="0" age.thru="99" stage="Lf"/>
+        <TB fraction="0.198" age.from="0" age.thru="99" stage="Ls"/>
+        <TB fraction="0.00317" age.from="0" age.thru="99" stage="Ds"/>
+        <TB fraction="0.00265" age.from="0" age.thru="99" stage="Dc"/>
+        <TB fraction="0.0484" age.from="0" age.thru="99" stage="R"/>
+        </seeded.infections>
+    </simulation>
+    <output>
+      <!--<final.population.as.fraction file="./data/IN-final-population-2050.txt"/>-->
+      <detailed.output years="1900:2050+0.5" age.group.lower.limits="0,15"/>
+      <incidence.output years="1900:2050+0.5">
+      <include>
+        <output.dim  name="TB" transmission="true" progression="true" treatment="true"/>
+        <output.dim  name="HIV" progression="false" incidence.from.data="false"/>
+        <output.dim  name="VXa"  progression="false" incidence.from.data="false"/>
+      </include>
+      </incidence.output>
+    </output>
+</TB.Vx.run.specification>

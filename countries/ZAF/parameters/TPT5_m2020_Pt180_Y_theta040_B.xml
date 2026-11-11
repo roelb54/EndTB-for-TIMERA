@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-Y.xsd">
+  <simulation from.year="1900" thru.year="2035">
+    <options>
+        <numerical.integration method="ode23" min.value.for.state.var="-3e-3"/>
+    </options>
+    <demography country.code="ignored" rescale.population="2050">
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+    <contact.matrix file="data/all_contacts_2020.txt" Mtb-strain="drugsens"/>
+    <contact.matrix file="data/all_contacts_2020.txt" Mtb-strain="drugresist"/>
+  </simulation>
+  <output>
+   <detailed.output years="1900+(0:27)*5" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" transmission="true" progression="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa"/>
+      <flows dim="RISK"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages></SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" />
+      <stage name="Ls" />
+      <stage name="I" />
+      <stage name="Ps" />
+      <stage name="TBdead" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.005" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.25" age.from="0" age.thru="99" stage="Ls"/>
+      <seeded.infection fraction="0" age.from="0" age.thru="99" stage="Ps"/>
+      <seeded.infection fraction="0" age.from="0" age.thru="99" stage="TBdead"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="c" value="0.00337" />
+      <TB.parameter name="w" value="0.4" />
+      <TB.parameter name="tau" value="1" />
+      <TB.parameter name="m" value="0.03" />
+      <TB.parameter name="sh" value="0.2" />
+      <TB.parameter name="midx" value="2020" />
+      <transition.matrix>
+        <transition from="Ps" to="I" rate="w*c" />
+        <transition from="Ls" to="I" rate="c" />
+        <transition from="I" to="Ls" rate="tau" />
+        <transition from="I" to="TBdead" rate="m" />
+      </transition.matrix>
+      <treatment.matrix name="TPT">
+        <transition from="Ls" to="Ps" rate="0" />
+        <multiplier name="thetamul" times="1900:2050" values="1/(1+exp(-sh*(x-midx)))"/>
+      </treatment.matrix>
+    </TB.progression>
+
+   <TB.infectivity>
+      <TB.parameter name="infc" value="1." /> 
+      <infectivity.matrix Mtb-strain="drugsens">
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+      <infectivity.matrix Mtb-strain="drugresist">
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+      <TB.parameter name="a" value="0.0665"/>
+      <TB.parameter name="q" value="0.5" />
+      <TB.parameter name="pT" value="0.018"/>
+      <TB.parameter name="theta" value="0.4" />
+      <TB.parameter name="sh" value="0.2" />
+      <TB.parameter name="midx" value="2020" />
+      <transmission.matrix Mtb-strain="drugsens">
+        <transition from="S" to="I" rate="pT*a" />
+        <transition from="S" to="Ls" rate="pT*(1-a)" />
+        <transition from="Ls" to="I" rate="pT*q*a" />
+        <transition from="Ps" to="Ls" rate="pT*q*(1-a)" />
+      </transmission.matrix>
+      <transmission.matrix Mtb-strain="drugresist">
+        <transition from="Ls" to="Ps" rate="theta" />
+        <multiplier name="thetamul" times="1900:2050" values="1/(1+exp(-sh*(x-midx)))"/>
+      </transmission.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>

@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": false,
+        "libraryPath": "C:/Users/roelb/AppData/Local/R/win-library/4.5",
+        "installDependencies": true
+    }
+}

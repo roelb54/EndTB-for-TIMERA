@@ -1,0 +1,282 @@
+---
+title: "D.1. A simple SIR model"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{D.1. A simple SIR model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### The XML specification of a simple SIR model
+
+Note that many default values of XML attributes are omitted. The XML below is annotated with comments between <!--  -->
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-S.xsd">
+  <simulation from.year="2020" thru.year="2021" dt="0.02">
+```
+
+**from.year** and **thru.year** specify the start and the end of the simulation run [note that **thru.year** is the final time point i.e. 2021.0 in this case]\
+**dt** is the time step for generating output
+
+``` xml
+    <options>
+      <numerical.integration/>
+    </options>
+```
+
+see the XML Schema for default values of attributes of the elements above\
+default integration algorithm is **ode23** ; see the R deSolve package for details
+
+``` xml
+    <demography country.code="ignored" rescale.population="2050">
+```
+
+**ignored** means from the command line or passed as an argument to the set.paths() function
+
+``` xml
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+<!--<contact.matrix file="data/all_contacts_2020.txt" />-->
+ </simulation>
+```
+
+**ISO3/data/demographics.csv** e.g. **ZAF/data/demographics.csv** should contain UNPOP projections i.e. population by single year age groups from 1900 - 2050
+
+**from.population.data** means that the number of newborns will be derived from UNPOP data ; in this model version the value should be **"true"**
+
+**deathrates.csv** contains WHO mortality data and is used to calculate background mortality
+
+If **country.code="ignored"** the country code passed as an argument will be prepended to the file name ; the full path for e.g. ZAF: **ZAF/data/ZAF_deathrates.csv**
+
+If the **contact.matrix** is omitted / commented out age mixing will be proportionate ; the country code will be prepended to file name e.g. **ZAF/data/ZAF_all_contacts_2020.txt**
+
+``` xml
+  <output>
+   <detailed.output years="2020+(0:50)*0.02" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" transmission="true" progression="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa"/>
+    </detailed.output>
+  </output>
+```
+
+**years**="2020+(0:50)\*0.02" means that output will be generated from 2020.0 thru 2021.0 in 0.02 time steps ; all output time points should be in the specified simulation years
+
+**age.group.lower.limits** should be a subset of age groups specified in `<ages>`
+
+(see the XML Schema for additional options for `<detailed.output>` and default values for specifying flows)
+
+``` xml
+  <ages lower.limits="5*(0:15)"/>
+```
+
+there are two options for **lower.limits** in the `<ages>` element:
+
+-   lower.limits="c(0:80,90)" i.e. single year age groups 0-79, one age group 80-89, one age group 90-99
+-   lower.limits="5\*(0:15)" i.e. 5 year age groups 0-4, 5-9, etc and one 75-99 age group
+
+### A simple SIR model specification
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-Z.xsd">
+  <simulation from.year="2020" thru.year="2021" dt="0.02">
+```
+
+i.e. run from 2020 thru 2021 with time steps of 0.02 year
+
+``` xml
+    <options><numerical.integration/></options>
+    <demography country.code="ignored" rescale.population="2050">
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+  </simulation>
+  <output>
+   <detailed.output years="2020+(0:50)*0.02" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" transmission="true" progression="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa"/>
+      <flows dim="RISK"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages></SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" />
+      <stage name="I" />
+      <stage name="R" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.01" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="d" value="7" />
+      <transition.matrix>
+        <transition from="I" to="R" rate="1/(d/365.2425)" />
+      </transition.matrix>
+    </TB.progression>
+   <TB.infectivity >
+      <TB.parameter name="infc" value="1." /> 
+      <infectivity.matrix Mtb-strain="drugsens">
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+    <TB.parameter name="bc" value="0.4" />
+      <transmission.matrix Mtb-strain="drugsens">
+        <transition from="S" to="I" rate="bc" />
+      </transmission.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>
+
+We will document this example by providing comments within the XML specification.
+
+``` xml
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages></SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+```
+
+The **VXa**, **SES**, **RISK**, and **HIV** dimensions are not used in this example.
+
+``` xml
+  <TB>
+```
+
+Define the S, I and R stages:
+
+``` xml
+    <TB.stages>
+      <stage name="S" />
+      <stage name="I" />
+      <stage name="R" />
+    </TB.stages>
+```
+
+and start with start with 1% infected in 2020:
+
+``` xml
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.01" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+```
+
+-   define TB progression from **I** to **R** i.e. transitions independent of transmission
+-   define parameter **d** i.e. duration of the **I** stage which is 7 days
+-   define the rate of the transition from **I** to **R** as 1/(**d**/365.2425)
+-   all rates have the unit 1/year ; one year is defined as 365.2425 days
+
+``` xml
+    <TB.progression>
+      <TB.parameter name="d" value="7" />
+      <transition.matrix>
+        <transition from="I" to="R" rate="1/(d/365.2425)" />
+      </transition.matrix>
+    </TB.progression>
+```
+
+-   define the infectivity of **I** to be 1.0
+
+``` xml
+   <TB.infectivity>
+      <TB.parameter name="infc" value="1." /> 
+      <infectivity.matrix>
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+```
+
+-   the parameter **bc** is the product of transmission probability per contact and contact rate
+-   note that the contact rate is per day as polymod matrices have contacts per day and internally the contact rate is multiplied with 365.2425 days/year to be consistent with year as the time unit
+-   the **R0** equals **bc** \* 365.2425 \* **d** / 365.2425 = **bc** \* **d**
+
+``` xml
+    <TB.transmission>
+    <TB.parameter name="bc" value="0.4" />
+      <transition.matrix>
+        <transition from="S" to="I" rate="bc" />
+      </transition.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>
+```
+
+The complete XML without comments / documentation:
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-S.xsd">
+  <simulation from.year="2020" thru.year="2021" dt="0.02">
+    <options>
+      <numerical.integration/>
+      <exceptional.conditions/>
+    </options>
+    <demography country.code="ignored" rescale.population="2050">
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+  </simulation>
+  <output>
+   <detailed.output years="2020+(0:50)*0.02" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" transmission="true" progression="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages></SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" />
+      <stage name="I" />
+      <stage name="R" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.01" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="d" value="7" />
+      <transition.matrix>
+        <transition from="I" to="R" rate="1/(d/365.2425)" />
+      </transition.matrix>
+    </TB.progression>
+   <TB.infectivity>
+      <TB.parameter name="infc" value="1." /> 
+      <infectivity.matrix>
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+    <TB.parameter name="bc" value="0.4" />
+      <transition.matrix>
+        <transition from="S" to="I" rate="bc" />
+      </transition.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>
+```

@@ -1,0 +1,51 @@
+---
+title: "D.6. Using incidence files to impose a prevalence distribution for e.g. the RISK dimension"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{D.6. Using incidence files to impose a prevalence distribution for e.g. the RISK dimension}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Using incidence files to impose a prevalence distribution of e.g. the RISK dimension
+
+The XML fragment below shows how to specify a RISK incidence file. The attribute **target.prevalence** is required to handle the fractions specified in the incidence file as prevalences.
+
+``` xml
+  <RISK>
+    <RISK.stages>
+      <stage name="normalwt" fraction.at.birth="1"/>
+      <stage name="underwt" />
+      <stage name="underwtcount" />
+    </RISK.stages>
+    <RISK.incidence>
+      <incidence.data file="data/RISK-incidence-2040-NAM_count.txt" times="1980,2051" values="1,1" 
+      proportions="false" denominator="susc" once.per.year="true" target.prevalence="true"/>
+    </RISK.incidence>
+```
+
+| YEAR | country | dim  | from     | to                      | TB  | 0    | 15   | 50   |
+|------|---------|------|----------|-------------------------|-----|------|------|------|
+| 1979 | NAM     | RISK | normalwt | "underwt, underwtcount" | NA  | 0    | 0    | 0    |
+| .    |         |      |          |                         |     |      |      |      |
+| .    |         |      |          |                         |     |      |      |      |
+| 1999 | NAM     | RISK | normalwt | "underwt, underwtcount" | NA  | 0    | 0    | 0    |
+| 2000 | NAM     | RISK | normalwt | "underwt, underwtcount" | NA  | 0.01 | 0.03 | 0.05 |
+| 2001 | NAM     | RISK | normalwt | "underwt, underwtcount" | NA  | 0.02 | 0.04 | 0.06 |
+| 2002 | NAM     | RISK | normalwt | "underwt, underwtcount" | NA  | 0.03 | 0.05 | 0.07 |
+
+The table above specifies that e.g. for the year 2000 the prevalence of **underwt** in 0 thru 14 year olds should be 0.01 (i.e. 1%) and that recruitment should take place from the **normalwt** state. The **underwtcount** is just to keep track of movements from **normalwt** to **underwt**.
+
+From the current version of TBvax, it is required that in the \<detailed.output\> element the RISK flows should be specified:
+
+```xml
+    <detailed.output years="c(2005,2005.5, 2015,2015.5, 2017, 2017.5)" age.group.lower.limits="c(0,15,40)" econ.output="false" suppress.zeros.in.stocks="false" suppress.zeros.in.flows="false" combine.stocks.and.flows="false">
+      <flows dim="TB" incidence="false" transmission="true" progression="true" treatment="true"/>
+      <flows dim="HIV" incidence="true" transmission="false" progression="true" treatment="true"/>
+      <flows dim="VXa" incidence="false" transmission="false" progression="false" treatment="false"/>
+      <flows dim="RISK" incidence="true" transmission="false" progression="false" treatment="false" />
+    </detailed.output>
+```
+
+i.e. the <flows> element for dim="RISK" now is a required element. To obtain output on RISK flows specify incidence="true".
+

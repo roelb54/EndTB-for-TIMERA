@@ -1,0 +1,21 @@
+{
+    "debugBreakpointsState": {
+        "breakpoints": [
+            {
+                "id": 3,
+                "path": "D:/GitHub/KNCVTB/TIMERA/EndTB/R/TBVx-age-related-fncs-v14.R",
+                "line_number": 151,
+                "function_steps": "2",
+                "function_name": "endtb.matmul.by.age.group.trigger",
+                "state": 1,
+                "editor_state": 1,
+                "editor_line_number": 151,
+                "is_pending_debug_completion": false,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": false,
+                "package_name": ""
+            }
+        ]
+    }
+}

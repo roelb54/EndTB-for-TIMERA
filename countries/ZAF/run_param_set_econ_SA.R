@@ -1,0 +1,260 @@
+run_param_set_econ <- function(model, cc, params, params_uid, vx_chars, vx_inc = NA, econ_output = F, rr_pct) {
+  
+  combined_ipj <- list()
+  
+  # set.paths = initialize the params
+  model_paths <- model$set.paths(countrycode  = cc,
+                                 xml          = vx_chars$xml,
+                                 VXa.incidence.files = vx_inc,
+                                 parameters   = vx_chars$input)
+  
+  # Run the model with the parameter set
+  if (vx_chars$runtype != "baseline"){
+    scen_baseline = model$baseline_output 
+  } else if (vx_chars$runtype == "baseline"){
+    scen_baseline = NULL
+  }
+  
+  output = model$run(model, new.parameter.values = params, baseline = scen_baseline)
+
+  
+  if (vx_chars$runtype == "baseline"){
+    model$baseline_output <- output
+    }
+  
+  #### cc_TB
+  
+  if (T){
+    flows_ipj <- output$flows
+    flows_ipj <- flows_ipj[age_from == 0  & age_thru == 0, AgeGrp := "[0,0]"]
+    flows_ipj <- flows_ipj[age_from == 80  & age_thru == 89, AgeGrp := "(80,89]"]
+    flows_ipj <- flows_ipj[age_from == 90  & age_thru == 99, AgeGrp := "(90,99]"]
+    
+    for (k in 1:79){
+      flows_ipj[age_from == k  & age_thru == k, AgeGrp := as.character(paste0("(", k, ",", k, "]"))]
+    }
+    
+    flows_ipj <- flows_ipj[!(age_from == 0 & age_thru == 99),]
+    flows_ipj <- flows_ipj[, !c("RISK", "age_from", "age_thru")]
+    
+    inc      <- flows_ipj[dim == "TB" & TB == "Ds" & (HIV != "HIVdead") & flow == "in" 
+                          & (subject != "TBp" & subject != "TBtr_init" & subject != "TBtr_nodead" & 
+                          subject != "TBtr_died"),]
+    inc_low  <- inc[SES == "low"][, .(SES_Low_Inc = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    inc_high <- inc[SES == "high"][, .(SES_High_Inc = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    inc_ses  <- merge(inc_low, inc_high)
+    
+    rm(inc)
+    rm(inc_low)
+    rm(inc_high)
+    
+    inc_ses  <- inc_ses[, Total_Inc := SES_High_Inc + SES_Low_Inc]
+    inc_ses  <- inc_ses[, SES_High_Inc_DS := (1-rr_pct)*SES_High_Inc][, SES_High_Inc_RR := (rr_pct)*SES_High_Inc]
+    inc_ses  <- inc_ses[, SES_Low_Inc_DS  := (1-rr_pct)*SES_Low_Inc][, SES_Low_Inc_RR := (rr_pct)*SES_Low_Inc]
+    inc_ses  <- inc_ses[, Total_Inc_DS    := (1-rr_pct)*Total_Inc][, Total_Inc_RR := (rr_pct)*Total_Inc]
+    
+    
+    notif <- flows_ipj[dim == "TB" & TB == "T" & (HIV != "HIVdead") & flow == "in" & subject == "TBtr_init",]
+    notif <- setDT(notif)
+    notif_low  <- notif[SES == "low"][, .(SES_Low_Notif = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    notif_high <- notif[SES == "high"][, .(SES_High_Notif = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    notif_ses  <- merge(notif_low, notif_high)
+    
+    rm(notif)
+    rm(notif_low)
+    rm(notif_high)
+    
+    notif_ses <- notif_ses[, Total_Notif       := SES_High_Notif + SES_Low_Notif]
+    notif_ses <- notif_ses[, SES_High_Notif_DS := (1-rr_pct)*SES_High_Notif][, SES_High_Notif_RR := (rr_pct)*SES_High_Notif]
+    notif_ses <- notif_ses[, SES_Low_Notif_DS  := (1-rr_pct)*SES_Low_Notif][, SES_Low_Notif_RR := (rr_pct)*SES_Low_Notif]
+    notif_ses <- notif_ses[, Total_Notif_DS    := (1-rr_pct)*Total_Notif][, Total_Notif_RR := (rr_pct)*Total_Notif]
+    
+    
+    ####### Treatment Success
+    
+trt_succ <- flows_ipj[dim == "TB" & HIV != "HIVdead" & ((TB == "R" & (subject == "TBtr_nodead" | subject == "TBtr_died"))
+                             | (TB == "Dc" & subject == "TBtr_nodead")),]
+    
+    SES_High_nodeadR  <- trt_succ[SES == "high" & dim == "TB" & (HIV != "HIVdead") & TB == "R"  & subject =="TBtr_nodead"  & flow == "in",
+                                  .(SES_High_nodeadR = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    SES_High_deadR    <- trt_succ[SES == "high" & dim == "TB" & (HIV != "HIVdead") & TB == "R"  & subject =="TBtr_died" & flow == "out",
+                                  .(SES_High_deadR = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    SES_High_nodeadDc <- trt_succ[SES == "high" & dim == "TB" & (HIV != "HIVdead") & TB == "Dc" & subject =="TBtr_nodead"  & flow == "in",
+                                  .(SES_High_nodeadDc = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    
+    SES_Low_nodeadR  <- trt_succ[SES == "low" & dim == "TB" & (HIV != "HIVdead") & TB == "R"  & subject =="TBtr_nodead"  & flow == "in",
+                                 .(SES_Low_nodeadR = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    SES_Low_deadR    <- trt_succ[SES == "low" & dim == "TB" & (HIV != "HIVdead") & TB == "R"  & subject =="TBtr_died" & flow == "out",
+                                 .(SES_Low_deadR = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    SES_Low_nodeadDc <- trt_succ[SES == "low" & dim == "TB" & (HIV != "HIVdead") & TB == "Dc" & subject =="TBtr_nodead"  & flow == "in",
+                                 .(SES_Low_nodeadDc = sum(value)), by = .(Country = country, Year = year, AgeGrp)]
+    
+    trt_succ <- merge(SES_High_nodeadR, SES_Low_nodeadR)
+    trt_succ <- merge(trt_succ, SES_High_deadR)
+    trt_succ <- merge(trt_succ, SES_Low_deadR)
+    trt_succ <- merge(trt_succ, SES_High_nodeadDc)
+    trt_succ <- merge(trt_succ, SES_Low_nodeadDc)
+    
+    rm(SES_High_deadR)
+    rm(SES_High_nodeadDc)
+    rm(SES_High_nodeadR)
+    rm(SES_Low_deadR)
+    rm(SES_Low_nodeadDc)
+    rm(SES_Low_nodeadR)
+    
+    
+    ## (dead values are in negatives but when I go to get the treat success I add instead of subtract so is all ok)
+    trt_succ <- trt_succ[, SES_High_success := SES_High_nodeadR + SES_High_deadR]
+    trt_succ <- trt_succ[, SES_Low_success  := SES_Low_nodeadR + SES_Low_deadR]
+    trt_succ <- trt_succ[, Total_success    := SES_High_nodeadR + SES_High_deadR + SES_Low_nodeadR + SES_Low_deadR]
+    
+    trt_succ <- trt_succ[, SES_High_compl_frac := SES_High_success / (SES_High_nodeadR + SES_High_nodeadDc)]
+    trt_succ <- trt_succ[, SES_Low_compl_frac  := SES_Low_success / (SES_Low_nodeadR + SES_Low_nodeadDc)]
+    trt_succ <- trt_succ[, Total_compl_frac    := Total_success / (SES_High_nodeadR + SES_High_nodeadDc + SES_Low_nodeadR + SES_Low_nodeadDc)]
+    
+    trt_succ <- trt_succ[, SES_High_compl_frac_DS := (1-rr_pct)*SES_High_compl_frac][, SES_High_compl_frac_RR := (rr_pct)*SES_High_compl_frac]
+    trt_succ <- trt_succ[, SES_Low_compl_frac_DS  := (1-rr_pct)*SES_Low_compl_frac][, SES_Low_compl_frac_RR := (rr_pct)*SES_Low_compl_frac]
+    trt_succ <- trt_succ[, Total_compl_frac_DS    := (1-rr_pct)*Total_compl_frac][,Total_compl_frac_RR := (rr_pct)*Total_compl_frac]
+    
+    # subset to only get the required variables
+    trt_succ <- trt_succ[, .(Country, Year, AgeGrp,
+                             SES_High_compl_frac, SES_High_compl_frac_DS, SES_High_compl_frac_RR,
+                             SES_Low_compl_frac, SES_Low_compl_frac_DS, SES_Low_compl_frac_RR,
+                             Total_compl_frac_DS, Total_compl_frac_RR, Total_compl_frac)]
+
+    
+    ### Population Size by Single ages - changed all 2023 to 2023
+    population <- output$population
+    population <- as.data.table(population)
+    population <- population[year >= 2023]
+    
+    population <- melt(population, id.vars = c("year", "country"),
+                       variable.name = "AgeGrp", value.name = "Population")
+    
+    population <- population[AgeGrp == "0", AgeGrp := "[0,0]"]
+    population <- population[AgeGrp == "80", AgeGrp := "(80,89]"]
+    population <- population[AgeGrp == "90", AgeGrp := "(90,99]"]
+    
+    for (k in 1:79){
+      population[AgeGrp == k, AgeGrp := as.character(paste0("(", k, ",", k, "]"))]
+    }
+    
+    # Subset the variables and make sure the capitals are correct
+    population <- population[, .(Country = country, Year = year, AgeGrp, Population)]
+
+    
+    TB_inc_notif <- population[inc_ses, on = .(Country = Country, Year = Year, AgeGrp = AgeGrp)]
+    TB_inc_notif <- TB_inc_notif[notif_ses, on = .(Country = Country, Year = Year, AgeGrp = AgeGrp)]
+    TB_inc_notif <- TB_inc_notif[trt_succ, on = .(Country = Country, Year = Year, AgeGrp = AgeGrp)]
+    
+    rm(population)
+    rm(inc_ses)
+    rm(notif_ses)
+    rm(trt_succ)
+    
+    # Number vaccinated per year
+     tb_vxa <- flows_ipj[dim == "VXa" & TB != "Rdead" & TB!= "TBdead" & 
+                           TB != "TBHIVdead" & TB != "RHIVdead" & HIV != "HIVdead" &
+                           VXa == "never" & flow == "out" & subject == "VXaXi",
+                         .(Number_VXa = abs(sum(value))), by = .(Country = country, Year = year, AgeGrp)]
+
+    TB_inc_notif <- merge(TB_inc_notif, tb_vxa, all = TRUE)
+    rm(tb_vxa)
+    
+    combined_ipj[["cc_TB"]] <- TB_inc_notif[, `:=`(UID = params_uid,
+                                                   Runtype = vx_chars$runtype,
+                                                   Scenario = vx_chars$scenario)]
+    
+   rm(TB_inc_notif)
+     
+  }
+  
+  rm(flows_ipj)  
+
+  
+  #### cc_TB_HIV
+  if(T){
+    
+    stocks_ipj <- output$stocks
+    stocks_ipj <- stocks_ipj[age_from == 0  & age_thru == 0, AgeGrp := "[0,0]"]
+    stocks_ipj <- stocks_ipj[age_from == 80  & age_thru == 89, AgeGrp := "(80,89]"]
+    stocks_ipj <- stocks_ipj[age_from == 90  & age_thru == 99, AgeGrp := "(90,99]"]
+    
+    for (k in 1:79){
+      stocks_ipj[age_from == k  & age_thru == k, AgeGrp := as.character(paste0("(", k, ",", k, "]"))]
+    }
+    
+    stocks_ipj <- stocks_ipj[!(age_from == 0 & age_thru == 99),]
+    
+    stocks_ipj <- stocks_ipj[, !c("RISK", "age_from", "age_thru")]
+    stocks_ipj <- stocks_ipj[TB != "TBdead" & TB!= "Rdead" & TB != "TBHIVdead" &
+                               TB != "RHIVdead", .(Raw_Value = sum(value)),
+                             by = .(Country = country, Year = year, AgeGrp, TB, HIV)]
+    
+    stocks_ipj <- stocks_ipj[, Scenario := vx_chars$scenario]
+    
+    combined_ipj[["cc_TB_HIV"]] <- stocks_ipj[, `:=`(UID = params_uid,
+                                                     Runtype = vx_chars$runtype)]
+    
+  }
+    
+  rm(stocks_ipj)
+
+    
+  ##### cc_deaths
+  if (T){
+  
+    # Get the TBHIV deaths (Econ output only)
+  tbhiv_deaths <- output$dHIVTBx
+  tbhiv_deaths <- as.data.table(tbhiv_deaths)
+  tbhiv_deaths <- tbhiv_deaths[year >= 2023][, `:=`(UID = params_uid,
+                                                    Runtype = vx_chars$runtype)]
+  
+  tbhiv_deaths <- melt(tbhiv_deaths, id.vars = c("year", "country", "UID", "Runtype"),
+                       variable.name = "AgeGrp", value.name = "Deaths")
+  
+  setnames(tbhiv_deaths, "Deaths", "TBHIVdeaths")
+  
+  # Get the Background deaths (Econ output only)
+  bg_deaths <- output$dBGx
+  bg_deaths <- as.data.table(bg_deaths)
+  bg_deaths <- bg_deaths[year >= 2023][, `:=`(UID = params_uid,
+                                              Runtype = vx_chars$runtype)]
+  
+  bg_deaths <- melt(bg_deaths, id.vars = c("year", "country","UID", "Runtype"),
+                    variable.name = "AgeGrp", value.name = "Deaths")
+  
+  setnames(bg_deaths, "Deaths", "BGdeaths")
+  
+  cc_alldeaths <- merge(bg_deaths, tbhiv_deaths)
+  cc_alldeaths <- cc_alldeaths[, ALLdeaths := BGdeaths + TBHIVdeaths]
+  
+  rm(bg_deaths)
+  rm(tbhiv_deaths)
+  
+  cc_alldeaths <- cc_alldeaths[AgeGrp == "0", AgeGrp := "[0,0]"]
+  cc_alldeaths <- cc_alldeaths[AgeGrp == "80", AgeGrp := "(80,89]"]
+  cc_alldeaths <- cc_alldeaths[AgeGrp == "90", AgeGrp := "(90,99]"]
+  
+  
+  
+  for (k in 1:79){
+    cc_alldeaths[AgeGrp == k, AgeGrp := as.character(paste0("(", k, ",", k, "]"))]
+  }
+  
+  # Subset the variables and make sure the capitals are correct
+  cc_alldeaths <- cc_alldeaths[, Scenario := vx_chars$scenario]
+  
+  
+  combined_ipj[["cc_deaths"]] <- cc_alldeaths[, .(Country = country, Year = year, UID,
+                                                  Runtype, Scenario, AgeGrp, BGdeaths, TBHIVdeaths, ALLdeaths)]
+  rm(cc_alldeaths)
+  
+  }
+  
+  
+  rm(output)
+  
+  
+  combined_ipj
+}

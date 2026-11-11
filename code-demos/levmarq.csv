@@ -1,0 +1,5 @@
+﻿parameter,value
+ftol,1.00E-02
+diag,25
+epsfcn,2
+maxiter,700

@@ -1,0 +1,130 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+### Specification of two different vaccines in XML
+
+A future version of tbvax may support separate vaccine dimensions
+(**VXa**, **VXb**, **VXc**). For now, the example below illustrates how
+two different vaccines A and B can be specified. Each vaccine has three
+different states: **n** for never vaccinated, **v** for vaccinated and
+**u** for unprotected (due to waning), and of course all possible
+combinations.
+
+``` xml
+<VXa>
+ <VXa.stages>
+ <stage name="AnBn" fraction.at.birth="1"/>
+ <stage name="AnBv"/>
+ <stage name="AnBu"/>
+ <stage name="AvBn"/>
+ <stage name="AvBv"/>
+ <stage name="AvBu"/>
+ <stage name="AuBn"/>
+ <stage name="AuBv"/>
+ <stage name="AuBu"/>
+</VXa.stages>
+```
+
+The contents of the vaccine incidence files specified below:
+
+``` xml
+<VXa.incidence>
+ <incidence.data file="data/infant_scaleup_med_D_exp_Asimple.txt" times="2020,2040"
+                values="1,1" proportions="false" denominator="susc" once.per.year="true"/>
+ <incidence.data file="data/infant_scaleup_med_D_exp_Bsimple.txt" times="2020,2040"
+                values="1,1" proportions="false" denominator="susc" once.per.year="true"/>
+</VXa.incidence>
+```
+
+is as follows (infant_scaleup_med_D\_exp_Asimple.txt): YEAR \| country
+\| dim \| from \| to \| VXa \| RISK \| SES \| HIV \| TB \| 0 \| 1 \| 2
+\| 3 ---- \| ------- \| --- \| ---- \| ---- \| ---- \| ---- \| ---- \|
+---- \| ---- \| ---- \| ---- \| ---- \| ---- 2032 \| IND \| VXa \| AnBn
+\| AvBn \| NA \| NA \| NA \| NA \| Un \| 0 \| 0 \| 0 \| 0 2036 \| IND \|
+VXa \| AnBn \| AvBn \| NA \| NA \| NA \| NA \| Un \| 0.6 \| 0 \| 0 \| 0
+
+(age groups from 4 omitted for clarity)
+
+This incidence file moves 60% of newborns from their initial `AnBn`
+state to `AvBn`. Note that this works for newborns as all newborns start
+in VXa state `AnBn`.
+
+If we were to administer vaccine A at a later age while vaccine B was
+administered at birth, additional transitions would need to be specified
+(as in infant_scaleup_med_D\_exp_A.txt):
+
+| YEAR | country | dim | from             | to               | VXa | RISK | SES | HIV | TB  | 0   | 1   | 2   | 3   |
+|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
+| 2032 | IND     | VXa | AnBn, AnBv, AnBu | AvBn, AvBv, AvBu | NA  | NA   | NA  | NA  | Un  | 0   | 0   | 0   | 0   |
+| 2036 | IND     | VXa | AnBn, AnBv, AnBu | AvBn, AvBv, AvBu | NA  | NA   | NA  | NA  | Un  | 0.6 | 0   | 0   | 0   |
+
+In the example above applying vaccine A would mean moving from from
+state #1 (`AnBn`) to the corresponding to state #1 (`AvBn`), from from
+state #2 (`AnBv`) to to state #2 (`AvBv`) etcetera.
+
+The second incidence file (infant_scaleup_med_D\_exp_Bsimple.txt) takes
+care of applying vaccine B: YEAR \| country \| dim \| from \| to \| VXa
+\| RISK \| SES \| HIV \| TB \| 0 \| 1 \| 2 \| 3 ---- \| ------- \| ---
+\| ---- \| ---- \| ---- \| ---- \| ---- \| ---- \| ---- \| ---- \| ----
+\| ---- \| ---- 2032 \| IND \| VXa \| AnBn \| AnBv \| NA \| NA \| NA \|
+NA \| Un \| 0 \| 0 \| 0 \| 0 2036 \| IND \| VXa \| AnBn \| AnBv \| NA \|
+NA \| NA \| NA \| Un \| 0.4 \| 0 \| 0 \| 0
+
+This incidence file moves 40% of newborns from their initial `AnBn`
+state to `AvBn`.
+
+If vaccine B were to be applied at a later age, after applying vaccine
+A, the incidence file below would work:
+
+| YEAR | country | dim | from             | to               | VXa | RISK | SES | HIV | TB  | 0   | 1   | 2   | 3   |
+|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
+| 2032 | IND     | VXa | AnBn, AvBn, AuBn | AnBv, AvBv, AuBv | NA  | NA   | NA  | NA  | Un  | 0   | 0   | 0   | 0   |
+| 2036 | IND     | VXa | AnBn, AvBn, AuBn | AnBv, AvBv, AuBv | NA  | NA   | NA  | NA  | Un  | 0.4 | 0   | 0   | 0   |
+
+Vaccine waning is specified in the `VXa.progression` XML element:
+
+``` xml
+  <VXa.progression>
+    <VXa.parameter name="kAw" value="0.1"/>
+    <VXa.parameter name="kBw" value="0.2"/>
+    <transition.matrix>
+      <transition from="AvBn" to="AuBn" rate="kAw"/>
+      <transition from="AvBv" to="AuBv" rate="kAw"/>
+      <transition from="AvBu" to="AuBu" rate="kAw"/>
+      <transition from="AnBv" to="AnBu" rate="kBw"/>
+      <transition from="AvBv" to="AvBu" rate="kBw"/>
+      <transition from="AuBv" to="AuBu" rate="kBw"/>
+    </transition.matrix>
+  </VXa.progression>
+```
+
+The effect of vaccine A and B on `TB.progression` can be specified as
+follows:
+
+``` xml
+  <TB.progression>
+      <TB.parameter VXa.stage="AnBn" name="pV" value="0"/>
+      <TB.parameter VXa.stage="AvBn" name="pV" value="0.8"/>
+      <TB.parameter VXa.stage="AuBn" name="pV" value="0"/>
+      <TB.parameter VXa.stage="AnBv" name="pV" value="0.6"/>
+      <TB.parameter VXa.stage="AvBv" name="pV" value="0.92"/>
+      <TB.parameter VXa.stage="AuBv" name="pV" value="0.6"/>
+      <TB.parameter VXa.stage="AnBu" name="pV" value="0"/>
+      <TB.parameter VXa.stage="AvBu" name="pV" value="0.8"/>
+      <TB.parameter VXa.stage="AuBu" name="pV" value="0"/>
+```
+
+with `pV` protection due to vaccine A and/or vaccine B which slows down
+progression to `Ds`:
+
+``` xml
+    <treatment.matrix name="LfLsRDs">
+      <transition from="Lf" to="Ds" rate="(1-pV)*(1-pE)*max(0.0696,theta*j1)"/>
+      <transition from="Ls" to="Ds" rate="(1-pV)*(1-pE)*max(0.000135,sigma*j2)"/>
+      <transition from="R" to="Ds" rate="(1-pV)*(1-pE)*max(0.01,rho*j3)"/>
+    </treatment.matrix>
+  </TB.progression>
+```

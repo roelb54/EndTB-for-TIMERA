@@ -1,0 +1,88 @@
+---
+title: "D.3. An SEIR model with two SES states and counting disease incidence"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{D.3. An SEIR model with two SES states and counting disease incidence}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Counting the accumulated incidence during a year can be accomplished by adding a state ending in "count" e.g. Icount.
+See the XML below.
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-T.xsd">
+  <simulation from.year="2020" thru.year="2021" dt="0.02">
+    <options>
+      <numerical.integration/>
+    </options>
+    <demography country.code="ignored" rescale.population="2050">
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+  </simulation>
+  <output>
+   <detailed.output years="2020+(0:50)*0.02" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" transmission="true" progression="true"/>
+      <flows dim="HIV"/>
+      <flows dim="VXa"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <!-- added low and high SES -->
+  <SES> 
+   <SES.stages> 
+      <stage name="low" fraction.at.birth="0.4"/>
+      <stage name="high" fraction.at.birth="0.6"/>
+   </SES.stages>
+  </SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" />
+      <stage name="E" />
+      <stage name="I" />
+      <!-- added Icount -->
+      <stage name="Icount" />
+      <stage name="R" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.01" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="E"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="dexposed" value="5" />
+      <!-- duration of infectious stage depends on SES (low SES: less access to health care)-->
+      <TB.parameter SES.stage="low"  name="d" value="14" />
+      <TB.parameter SES.stage="high" name="d" value="7" />
+      <transition.matrix>
+        <transition from="E" to="I" rate="1/(dexposed/365.2425)" />
+        <!-- added transition from E to Icount -->
+        <transition from="E" to="Icount" rate="1/(dexposed/365.2425)" />
+        <transition from="I" to="R" rate="1/(d/365.2425)" />
+      </transition.matrix>
+    </TB.progression>
+   <TB.infectivity>
+      <!-- infectivity depends on SES (low SES: generally less healthy)-->
+      <TB.parameter SES.stage="low"  name="infc" value="1." /> 
+      <TB.parameter SES.stage="high" name="infc" value="0.8" /> 
+      <infectivity.matrix>
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+    <TB.parameter name="bc" value="0.4" />
+      <transition.matrix>
+        <transition from="S" to="E" rate="bc" />
+      </transition.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>
+```

@@ -1,0 +1,4 @@
+name,unique.name,xpath,VXa.stage,SES.stage,RISK.stage,HIV.stage,age.group,dist,mean,shape,min,max,choose
+eta2,eta2,//TB/TB.progression/TB.parameter,NA,NA,NA,NA,NA,uniform,0,NA,0,1,TRUE
+iota,iota,//VXa/VXa.progression/VXa.parameter,NA,NA,NA,NA,NA,uniform,0,NA,0,1,TRUE
+alphaTPT,alphaTPT,//VXa/VXa.progression/VXa.parameter,NA,NA,NA,NA,NA,uniform,1,NA,0,1,TRUE

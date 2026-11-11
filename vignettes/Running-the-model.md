@@ -1,0 +1,149 @@
+### Preparation
+
+1. Clone the **lshtm-tbmg/tbvax** github repository to your local system
+2. Switch to the branch **tbvax-test-pkg**
+3. Open the project **tbvax-test-pkg.Rproj** in RStudio
+4. Find the R scripts mentioned below in the main folder
+
+## A. Running an SIR model with the **tbvax** R package
+
+### A.1. Running the SIR model [with an XML input file only]
+
+The example source code below (see **run-SIR.R**) shows how to run the SIR model.
+
+```
+library(tbvax)
+
+paths = set.paths(countries   = "countries", 
+                  countrycode = "ZAF", 
+                  xml         = "SIR.xml",
+                  lglevel     = "INFO")
+
+output=run(paths,write.to.file = T)
+```
+
+The important function calls are:
+* `set.paths()` which points the code to the location of the xml and other files
+* `run()` which runs the model 
+
+**output** is a list of **output$stocks** and **output$flows** each of which are also written to files (if the write.to.file argument is T).
+
+The 'stocks' and 'flows' output produced by running the model will be written to the folder "./countries/ZAF/output" (of course depending on the `countries` and `countrycode` arguments of set.paths().
+
+### A.2. Running the simple SIR model [with an XML input file and a targets file]
+
+The example source code below (see **run-SIR-with-targets.R**) shows how to run the SIR model with a targets file.
+
+```
+library(tbvax)
+
+paths = set.paths(countries   = "countries", 
+                  countrycode = "ZAF", 
+                  xml         = "SIR.xml",
+                  targets     = "targets-SIR.csv",
+                  lglevel     = "INFO")
+
+output=run(paths,write.to.file = T)
+```
+In addition to **output$stocks** and **output$flows** the output will also contain **output$hits**   
+**output$hits** will written to a file with its name ending in [hits].txt.  
+
+This file is the result of evaluating the model output vs a predefined set of targets.  
+Evaluation of output versus targets is documented [here](./output-and-evaluation-of-targets)  
+
+### A.3. Running the simple SIR model [with an XML input file and a parameters file for replacing XML parameter values]
+
+The example source code below (see **run-SIR-with-parameter-replacement.R**) shows how to run the SIR model with parameter replacement file.
+
+```
+library(tbvax)
+
+paths = set.paths(countries   = "countries", 
+                  countrycode = "ZAF", 
+                  xml         = "SIR.xml",
+                  parameters  = "input-SIR.csv",
+                  lglevel     = "INFO")`
+
+output=run(paths,write.to.file = T)
+```
+
+The **input-SIR.csv** file is a csv with the following layout:
+
+name | unique.name | xpath | VXa.stage | SES.stage | RISK.stage | HIV.stage | age.group | dist | mean | shape | min | max | choose
+-- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | --
+bc | bc | //TB/TB.transmission/TB.parameter | NA | NA | NA | NA | NA | uniform | 0.2 | NA | 0.05 | 0.95 | TRUE
+
+In this type of file multiple parameters can be specified each of which is located in the XML by its name and xpath expression.
+The columns VXa.stage thru age.group are used to specify TB parameters that are specific for e.g. HIV stage(s).
+**mean** is the value that will replace the XML parameter value 
+**min** and **max** are the bounds from which a random value may be drawn (by the emulator or optimizer) if **choose=TRUE**
+
+In the example above, the value of 0.2 will replace the value of 0.4 in **SIR.xml**   
+
+The practical use of these **input.csv** files is usually to replace a set of parameters in the XML without having to edit the XML by hand.
+
+### A.4. Running the simple SIR model [with an XML input file, a targets file, a parameters file and using the **new.parameter.values** option]
+
+A more interesting example is to repeatedly replace a parameter value to try to fit targets.
+The source code below (see **run-SIR-with-parameter-replacement-and-targets.R**) shows how to run the SIR model with a parameter replacement file and a targets file and a method to replace a parameter value by a sampled parameter value.
+
+```
+library(tbvax)
+
+paths = set.paths(countries="countries", countrycode="ZAF", xml="SIR.xml", parameters="input-SIR.csv", targets="targets-SIR.csv", lglevel="INFO")
+
+for (i in 1:50){   
+   x = runif(n=1, min=0.05, max=0.95)
+   names(x)="bc"
+   output=run(paths, new.parameter.values = x, write.to.file = F)
+   cat("bc=",x,'\t',"# targets hit:",output$hits$fit,'\n')
+}   
+```
+
+In the example above, a value for bc [i.e. beta * c or transmission probability per contact times contact rate] will be sampled from a uniform distribution between 0.05 and 0.95 to fit the targets (obtained by running the model with bc=0.2).
+
+The **new.parameter.values** argument of the run() function expects a named vector of parameter values ; the names of the parameters should match the **unique.name** in **input-SIR.csv**.
+
+### 2. Running complex ZAF [with an XML input file only]
+
+The example source code below (see also **run-complex-ZAF.R**) shows how to run the complex ZAF model.
+
+```
+library(tbvax)
+
+paths = set.paths(countries   = "countries", 
+                  countrycode = "ZAF", 
+                  xml         = "complex-ZAF.xml", 
+                 lglevel      = "INFO")
+
+output=run(paths,write.to.file = T)
+```
+The important function calls are:
+* `set.paths()` which points the code to the location of the xml and other files
+* `run()` which runs the model 
+
+Files produced by running the model will be written to the folder "./countries/ZAF/output" (of course depending on the `countries` and `countrycode` arguments of set.paths().
+
+Both the set.paths() function and the run() function are described in detail in the tbvax package documentation.  
+
+### 3. Running complex ZAF [with an XML input file and an additional targets file]
+(see **run-complex-ZAF-with-targets.R**)
+
+If a so-called targets file is specified in the set.paths() function:  
+
+```
+library(tbvax)
+
+paths = set.paths(countries   = "countries", countrycode = "ZAF",  
+                  xml         = "complex-ZAF.xml",  
+                  targets     = "target_L0_LTBI_all2.csv",  
+                  lglevel     = "INFO")  
+```
+running the model with 
+```
+output=run(paths,write.to.file = T)
+```
+will generate additional output in a file name ending in [hits].txt.
+This file is the result of evaluating the model output vs a predefined set of targets.
+Evaluation of output versus targets is documented [here](./output-and-evaluation-of-targets)
+

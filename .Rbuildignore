@@ -1,0 +1,13 @@
+^R/UNPOP-WPP-PROCESSING
+^countries-examples/
+^countries/ZAF/logs
+^countries/ZAF/output
+^countries/NAM/logs
+^countries/NAM/output
+^run-optimizer*.R
+^RB
+^input-file-templates
+^edu
+^concat_files
+^.*\.Rproj$
+^\.Rproj\.user$

@@ -1,0 +1,33 @@
+TO DO:
+
+- set up examples for 
+  = simple TB model (no HIV) with just case finding as intervention
+  = TB model (no HIV) with TPT (triggered by starting treatment of Dc)
+  = TB model (no HIV) with DR TB (as a result of treatment?)
+  = add diagnostic tests and follow up treatment
+
+- data?
+  = use WHO data only
+
+BEFORE we can do the above:
+= agree on TB natural history and parameters to fit (based on RC LMIC publication?)
+= agree on HIV model (see Tom's recent paper in Vaccine)
+= how to include DR TB
+
+Example countries used to highlight how EndTB works:
+
+Ethiopia (HIV not included)
+South Africa (with HIV)
+Namibia (with HIV)
+
+For each example:
+- start with fit (which includes TB treatment i.e. case finding)
+- add TPT
+
+Questions:
+- how to include DR TB?
+
+
+
+
+

@@ -1,0 +1,9 @@
+country,year_from,year_thru,xVXa,xSES,xRISK,xHIV,xTB,xtype ,xcause,a,b,c,yVXa,ySES,yRISK,yHIV,yTB,ytype,ycause,fn,age_from,age_thru,value,lo,hi,err,name,type,orig_err
+ZAF,2000.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2005.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2010.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2015.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2020.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2025.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2030.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5
+ZAF,2035.5,NA,all,all,all,all,Ds,inflow,"Tm_drugsens,TBp, TBtr_LfLsDs, TBtr_RDs",NA,NA,NA,all,all,all,all,all,stock,NA,1e5*x/y,0,99,100,0,200,1.00E+03,TB_inci_0_99,inci,322.5

@@ -1,0 +1,188 @@
+---
+title: "F. Matrix Multiplication for Calculating Derivatives"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{F. Matrix Multiplication for Calculating Derivatives}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+The **tbvax** model is a compartmental deterministic model that
+simulates the dynamics of Mtb transmission and TB disease progression.
+The model is used to project the health benefits and costs of various TB
+vaccine strategies.
+
+In essence, **tbvax** is a system of ordinary differential equations
+that defines the derivatives with respect to time of a set of state
+variables. The state variables represent a model population which is
+structured by the following core dimensions:
+
+-   age
+-   VXa (vaccination status)
+-   RISK (risk status, currently not used)
+-   SES (socioeconomic status)
+-   HIV stage
+-   TB stage
+
+The number of classes in each dimension is specified by the user.\
+Mtb transmission is determined by the transmission probability per
+contact and the number of contacts per day between 5-year age groups
+specified by contact matrices (see the paper by Prem et al:
+<https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009098>).\
+The R package deSolve
+(<https://cran.r-project.org/web/packages/deSolve/index.html>) is used
+to move the set of state variables forward in time from the initial
+state (i.e. the initial conditions).
+
+The most important functions of the tbvax model are in TBVx-derivs-v##.R
+(with \## currently at 20). The function derivs.deSolve()is called by
+the deSolve rk() function to move the state variables forward in time.
+The function derivs.deSolve()uses matrix multiplications to calculate
+the contributions of different processes (e.g. incidence, progression,
+treatment, transmission) to the derivatives. The (mostly) constant
+values in the (sparse) matrices are derived from the XML input file. The
+R package Matrix is used for matrix multiplications.
+
+The most important advantages of **tbvax** are:
+
+-   *flexibility* (the end user specifies the model in the XML), and
+
+-   *performance* (one simulation run over a time period of 150 year
+    with 82 age classes, 2 SES, 10 HIV states and 12 TB states (i.e.
+    19680 state variables) takes only 10 to 20 seconds)
+
+In an SIR model defined by (the dot on top of S, I and R indicate the
+time derivative i.e. dS/dt etc.):
+
+$$
+\dot{S}=-\beta \cdot S \cdot \frac{I}{N}
+$$ $$
+\dot{I}=\beta \cdot S \cdot \frac{I}{N} - \gamma \cdot I
+$$ $$
+\dot{R}= \gamma \cdot I
+$$
+
+with
+
+$$
+\lambda = \beta \cdot \frac{I}{N}
+$$
+
+the time derivatives of S, I and R can be calculated by: $$
+\begin{bmatrix}
+\dot{S} \\
+\dot{I} \\
+\dot{R} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\lambda & 0 & 0 \\
+\lambda & -\gamma &  0\\
+0 & \gamma &  0\\
+\end{bmatrix} 
+\begin{bmatrix}
+S \\
+I \\
+R \\
+\end{bmatrix} 
+$$
+
+i.e. a multiplication of a matrix and a vector (S, I, R) (that could
+just as well be a matrix with age groups in columns). This is the basis
+for all calculations in the TBvax model (though the matrices are larger
+e.g. 648 rows x 648 columns for parameter matrices and 648 rows by 82
+columns for the state variables).
+
+Similar matrix multiplications are also used for:
+
+-   progression (defined in the XML \<transition.matrix\> elements in
+    the section \<TB.progression\>)
+-   treatment (defined in the XML \<treatment.matrix\> elements)
+
+For instance, the transition matrix for TB progression is defined by:
+
+```         
+  <transition.matrix>
+    <transition from="Lf" to="Ls" rate="omega"/>
+    <transition from="Lf" to="Uc" rate="phiF"/>
+    <transition from="Ls" to="Uc" rate="phiS"/>
+   <transition from="Ds" to="Dc" rate="zeta"/>
+    <transition from="Ds" to="R" rate="chi"/>
+    <transition from="Dc" to="R" rate="chi"/>
+    <transition from="Dc" to="TBdead" rate="muDc"/>
+    <transition from="R" to="Rdead" rate="muK"/>
+  </transition.matrix>
+```
+
+and from this definition, the following matrix is generated:
+
+$$
+\begin{bmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & \phi_F & \phi_S & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & -\omega-\phi_F & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & \omega & -\phi_S & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & -\zeta-\chi & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & \zeta & -\chi-\mu_{DC} & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & \chi & \chi & 0 & -\mu_K & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & \mu_{DC} & 0 & \mu_K & 0 & 0 \\
+\end{bmatrix} 
+$$ Note that the column sums of this matrix should be 0. The model code
+checks this. If one thinks of boxes and flows, this ensures that the
+origin of a flow [what leaves a box] is the same as what it points to
+[what enters another box].
+
+This parameter matrix is multiplied with a matrix of state variables
+with states in rows and age groups in columns to produce the
+derivatives. With just one age group this would be: $$
+\begin{bmatrix}
+\dot{Un} \\
+\dot{Uc} \\
+\dot{Lf} \\
+\dot{Ls} \\
+\dot{Ds} \\
+\dot{Dc} \\
+\dot{T} \\
+\dot{R} \\
+\dot{TBdead} \\
+\dot{Rdead} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & \phi_F & \phi_S & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & -\omega-\phi_F & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & \omega & -\phi_S & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & -\zeta-\chi & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & \zeta & -\chi-\mu_{DC} & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & \chi & \chi & 0 & -\mu_K & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & \mu_{DC} & 0 & \mu_K & 0 & 0 \\
+\end{bmatrix} 
+\begin{bmatrix}
+Un \\
+Uc \\
+Lf \\
+Ls \\
+Ds \\
+Dc \\
+T \\
+R \\
+Rdead \\
+TBdead \\
+\end{bmatrix} 
+$$ With more than one age group, the column vector of state variables
+would be replaced by a matrix with states in rows and age groups in
+columns to produce a matrix of derivatives of the state variables.
+
+Treatment matrices work in a similar way.
+
+The challenge is in generating the (large) parameter matrices correctly
+for multiple dimensions (VXa, SES, RISK, HIV, TB) where the rates could
+depend on age group, VXa, SES, RISK, HIV ...

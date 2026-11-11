@@ -1,0 +1,96 @@
+rm(list=ls())
+library(shiny)
+source(here::here("R","include-v11.R"))
+source(here::here("R","TBVx-run-v1.R"))
+taskenvvar="taskID"
+seed=60
+set.seed(seed)
+Sys.setenv(taskID=seed^2)
+
+paths = set.paths(countries   = "countries", 
+                  countrycode = "MWI",
+                  xml         = "MWI_complex-ZAF-MWI-altC_optim.xml",
+                  targets     = "MWI_targets_altE.csv",
+                  lglevel     = "INFO")
+baseline=run(paths,write.to.file = F) #, write.xml="check_assortativity.xml")
+sum(baseline$hits$fit)
+
+paths = set.paths(countries   = "countries", 
+                              countrycode = "ZAF", 
+                              xml         = "XMLshinyF2.xml",
+                              #xml         = "XML_alphaTPT09_eta209_iota0.xml",
+                              parameters  = "inputshinyE.csv",
+                              targets     = "targetPLOTno19inci099_2.csv")
+
+df_base = run(paths,write.xml="testA.xml")$hits
+yrs = (2000+(0:7)*5)+0.5
+sel = (df_base$year %in% yrs
+       & df_base$name == "TB_inci_0_99" 
+       & df_base$age_from==0
+       & df_base$age_thru==99)
+
+baseinci = df_base$model[sel] 
+names(baseinci) = as.character(trunc(yrs))
+
+
+server = shinyServer(function(input, output) {
+  
+  output$eta2doc <- renderText(    
+{"additional treatment rate: the fraction of the population
+with active TB treated per year in addition to the baseline
+rate of 0.63/yr"})
+  output$alphaTPTdoc <- renderText(
+{"TPT rate: the fraction of PLHIV tested and treated per year;
+in addition 2.5 HIV- household members are tested and
+treated; at 9% HIV prevalence and a TPT rate of 1.0 this is
+3.5*9% = 31.5% of the population"})
+  output$TPTdoc <- renderText(     
+{"TPT rate in the general population: the (random) fraction
+tested and treated per year"})
+  
+  inci2 = eventReactive(input$go,{
+    pp = as.numeric(c(input$eta2,input$alphaTPT,input$iota, input$effTPT, input$pRTPT))
+    names(pp)=c("eta2","alphaTPT","iota","effTPT","pRTPT")
+    df_intv = run(paths, new.parameter.values = pp, write.to.file = F)$hits
+    # yrs = (2000+(0:7)*5)+0.5
+    sel = (df_intv$year %in% yrs & df_intv$name == "TB_inci_0_99" & df_intv$age_from==0 & df_intv$age_thru==99)
+    df_intv$model[sel] 
+  })
+
+  output$rev <- renderPlot({
+    inci3 = as.numeric(inci2())
+    names(inci3) = as.character(trunc(yrs))
+    
+    barplot(baseinci,col="palegreen",
+            main=paste("TB incidence in",input$country," in 2035:",round(inci3["2035"],0),"/100,000"),
+            ylab="# new cases / 100,000",
+            xlab="year")
+    barplot(inci3,col="green",add=T)
+  })
+})
+
+ui = shinyUI(pageWithSidebar(
+  
+  headerPanel(title = span("Simulated impact of TB interventions for Namibia [v 0.31]")), 
+                      #style = "color: black; font-size: 20px")),
+
+  sidebarPanel(
+    p("Initial NAM model specification by Rebecca Clark, LSHTM [see https://www.medrxiv.org/content/10.1101/2022.04.16.22273762v2]"),
+    p("TPT specification, model implementation and web application by Roel Bakker, LSHTM, KNCV"),
+    # selectInput('country', 'Country', c("ZAF","ANG","IND")),
+    # sliderInput('end_year',  "End year:", min = 2016, max = 2030, value = 2020, step= 1),
+    sliderInput('eta2', "additional treatment rate:", min = 0, max = 1, value = 0, step= 0.1),
+    verbatimTextOutput("eta2doc"),
+    sliderInput('alphaTPT', "TPT rate for PLHIV and household members:", min = 0, max = 1.5, value = 0, step= 0.1),
+    verbatimTextOutput("alphaTPTdoc"),
+    sliderInput('iota', "TPT rate for general population:", min = 0, max = 0.2, value = 0, step= 0.05),
+    verbatimTextOutput("TPTdoc"),
+    numericInput("effTPT", "TPT effectiveness:", 0.7, min = 0, max = 1, step=0.05, width="200px"),
+    numericInput("pRTPT", "protection against reinfection after TPT:", 0.62, min = 0, max = 1, step="0.02", width="200px"),
+    actionButton("go","Go")
+  ),
+  mainPanel(
+    plotOutput("rev",height = "600px")
+  )
+))
+shinyApp(ui,server)

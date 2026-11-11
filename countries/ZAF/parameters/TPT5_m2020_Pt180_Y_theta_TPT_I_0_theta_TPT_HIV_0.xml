@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-schema-Z.xsd">
+  <simulation from.year="1900" thru.year="2026">
+    <options>
+        <numerical.integration method="ode23" min.value.for.state.var="-3e-3"/>
+    </options>
+    <demography country.code="ignored" rescale.population="2050">
+      <from.data>
+        <population file="data/demographics.csv"/>
+        <birthrate from.population.data="true"/>
+        <mortality file="data/deathrates.csv"/>
+      </from.data>
+    </demography>
+    <!--contact.matrix file="data/all_contacts_2020.txt"/-->
+  </simulation>
+  <output>
+   <detailed.output years="1990+(0:7)*5" age.group.lower.limits="0">
+      <flows dim="TB" transmission="true" progression="true" incidence="true"/>
+      <flows dim="HIV" transmission="true" progression="true" incidence="true"/>
+      <flows dim="VXa"/>
+      <flows dim="RISK"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages></SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV>
+    <HIV.stages>
+      <!--Included the HIV stage names and parameters 26/10/2020CM -->
+      <stage name="HIV-" fraction.at.birth="1"/>
+      <!-- to test HIV, set fraction.at.birth e.g. to 0.95 for HIV- and to 0.05 for HIV1 -->
+      <stage name="HIVu1"/>
+      <stage name="HIVd1"/>
+      <stage name="ARTn1"/>
+      <stage name="ARTs1"/>
+      <stage name="HIVdead"/>
+    </HIV.stages>
+    <HIV.incidence>
+      <incidence.data file="data/HIV-incidence-unaids-NAM.txt" times="1980,2051" values="1e-3*lambdaH,1e-3*lambdaH" proportions="false" denominator="susc"/>
+    </HIV.incidence>
+    <HIV.progression>
+      <age.groups>
+        <age.group name="A0"/>
+        <age.group name="A15"/>
+      </age.groups>
+      <HIV.parameter age.group="A0" name="betaH" value="0.092"/>
+      <HIV.parameter age.group="A15" name="betaH" value="0.074"/>
+      <HIV.parameter name="j5" age.group="A0" value="0.82"/>
+      <!-- age specific mult for rate at which people are dignosed and suppressed-->
+      <HIV.parameter name="j5" age.group="A15" value="1"/>
+      <HIV.parameter name="j6" age.group="A0" value="0.75"/>
+      <!-- 0.52age specific mult for rate at which people start on ART-->
+      <HIV.parameter name="j6" age.group="A15" value="1"/>
+      <!-- age specific mult for rate at which people go to ART supp -->
+      <HIV.parameter name="j7" age.group="A0" value="0.82"/>
+      <HIV.parameter name="j7" age.group="A15" value="1"/>
+      <HIV.parameter name="lambdaH" value="1.40229160303829"/>
+      <!--1.5-->
+      <!--1.8-->
+      <HIV.parameter name="alphaH" value="1.56103340670294"/>
+      <HIV.parameter name="alphaHmul2010" value="3"/>
+      <!-- hiv progression from cd4 >=350 to cd4 <350 -->
+      <HIV.parameter name="gammaH" value="0.164"/>
+      <!-- transition from undiagnosed to diagnosed-->
+      <HIV.parameter name="epsilonH" value="0.209472322"/>
+      <!-- varies to fit prop diagnosed-->
+      <HIV.parameter name="epsilonHmul2010" value="0.934344047"/>
+      <!-- transition from virally suppressed to unsuppressed-->
+      <HIV.parameter name="piH" value="0.099"/>
+      <!-- transition from unsuppressed to supressed-->
+      <HIV.parameter name="phiH" value="4.99065881362473"/>
+      <!-- varies to fit prop suppressed-->
+      <HIV.parameter name="phiHmul2010" value="2.1860720462208"/>
+      <HIV.parameter name="muH1" value="0.00804774565844543"/>
+      <!--HIV.parameter name="muH2" value="0.284409083765995"/-->
+      <!--0.1-->
+      <transition.matrix>
+        <transition from="ARTs1" to="ARTn1" rate="piH"/>
+        <transition from="ARTn1" to="HIVd1" rate="betaH"/>
+      </transition.matrix>
+      <treatment.matrix name="diag">
+        <transition from="HIVu1" to="HIVd1" rate="epsilonH*j5"/>
+        <multiplier name="epsilonHmul" times="2003,2010,2020" values="0,epsilonHmul2010,1"/>
+      </treatment.matrix>
+      <treatment.matrix name="treat">
+        <transition from="HIVd1" to="ARTn1" rate="alphaH*j6"/>
+        <multiplier name="alphaHmul" times="2003,2010,2020" values="0,alphaHmul2010,1"/>
+      </treatment.matrix>
+      <treatment.matrix name="supp">
+        <transition from="ARTn1" to="ARTs1" rate="phiH*j7"/>
+        <multiplier name="phiHmul" times="2003,2010,2020" values="0,phiHmul2010,1"/>
+      </treatment.matrix>
+      <treatment.matrix name="HIVARTdead">
+        <transition from="HIVu1" to="HIVdead" rate="muH1"/>
+        <transition from="HIVd1" to="HIVdead" rate="muH1"/>
+        <transition from="ARTn1" to="HIVdead" rate="muH1*0.2"/>
+        <transition from="ARTs1" to="HIVdead" rate="muH1*0.2*0.32"/>
+      </treatment.matrix>
+    </HIV.progression>
+  </HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" />
+      <stage name="Ls" />
+      <stage name="I" />
+      <stage name="Ps" />
+      <stage name="TBdead" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.005" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.25" age.from="0" age.thru="99" stage="Ls"/>
+      <seeded.infection fraction="0" age.from="0" age.thru="99" stage="Ps"/>
+      <seeded.infection fraction="0" age.from="0" age.thru="99" stage="TBdead"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="c" value="0.00337" />
+      <TB.parameter name="w" value="0.4" />
+      <TB.parameter name="tau" value="1" />
+      <TB.parameter name="m" value="0.03" />
+      <TB.parameter name="sh" value="0.2" />
+      <TB.parameter name="midx" value="2020" />
+      <transition.matrix>
+        <transition from="Ps" to="I" rate="w*c" />
+        <transition from="Ls" to="I" rate="c" />
+        <transition from="I" to="Ls" rate="tau" />
+        <transition from="I" to="TBdead" rate="m" />
+      </transition.matrix>
+      <treatment.matrix name="TPT">
+        <transition from="Ls" to="Ps" rate="0" />
+        <multiplier name="thetamul" times="1900:2050" values="1/(1+exp(-sh*(x-midx)))"/>
+      </treatment.matrix>
+    </TB.progression>
+
+   <TB.infectivity>
+      <TB.parameter HIV.stage="HIV-" name="TPTHIVpos" value="0." />
+      <TB.parameter HIV.stage="HIVu1" name="TPTHIVpos" value="0." />
+      <TB.parameter HIV.stage="HIVd1" name="TPTHIVpos" value="1." />
+      <TB.parameter HIV.stage="ARTn1" name="TPTHIVpos" value="1." />
+      <TB.parameter HIV.stage="ARTs1" name="TPTHIVpos" value="1." />
+      <TB.parameter HIV.stage="HIVdead" name="TPTHIVpos" value="0." />
+      <TB.parameter name="infc" value="1." />
+      <infectivity.matrix Mtb-strain="drugsens">
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+      <infectivity.matrix Mtb-strain="TPT_I">
+        <infectivity stage="I" value="0" />
+      </infectivity.matrix>
+      <infectivity.matrix Mtb-strain="TPT_HIV">
+        <infectivity stage="S" value="TPTHIVpos" />
+        <infectivity stage="Ls" value="TPTHIVpos" />
+        <infectivity stage="I" value="TPTHIVpos" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+      <TB.parameter name="a" value="0.0665"/>
+      <TB.parameter name="q" value="0.5" />
+      <TB.parameter name="pT" value="0.018"/>
+      <TB.parameter name="theta_TPT_I" value="0" />
+      <TB.parameter name="theta_TPT_HIV" value="0" />
+      <TB.parameter name="sh" value="0.2" />
+      <TB.parameter name="midx" value="2020" />
+      <transmission.matrix Mtb-strain="drugsens">
+        <transition from="S" to="I" rate="pT*a" />
+        <transition from="S" to="Ls" rate="pT*(1-a)" />
+        <transition from="Ls" to="I" rate="pT*q*a" />
+        <transition from="Ps" to="Ls" rate="pT*q*(1-a)" />
+      </transmission.matrix>
+      <transmission.matrix Mtb-strain="TPT_I">
+        <transition from="Ls" to="Ps" rate="theta_TPT_I" />
+        <multiplier name="thetamul" times="1900:2050" values="1/(1+exp(-sh*(x-midx)))"/>
+      </transmission.matrix>
+      <transmission.matrix Mtb-strain="TPT_HIV">
+        <transition from="Ls" to="Ps" rate="theta_TPT_HIV" />
+        <multiplier name="thetamul" times="1900:2050" values="1/(1+exp(-sh*(x-midx)))"/>
+      </transmission.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>

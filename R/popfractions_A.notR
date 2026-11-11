@@ -1,0 +1,35 @@
+mpop = read.csv(file="demographics_female.csv", header = F)
+names(mpop)=c("country","year",paste0("A",0:99))
+mpop2013_2015 = mpop[mpop$year %in% 2013:2015,] # new cases only
+mpop2016_2023 = mpop[mpop$year %in% 2016:2023,] # new and relapse cases
+A0_4 = paste0("A",0:4)
+#A5_9 = paste0("A",5:9)
+#A10_14 = paste0("A",10:14)
+A0_14 = paste0("A",0:14)
+A5_14 = paste0("A",5:14)
+A15_19 = paste0("A",15:19)
+A20_24 = paste0("A",20:24)
+A15_24 = paste0("A",15:24)
+A25_34 = paste0("A",25:34)
+A35_44 = paste0("A",35:44)
+A45_54 = paste0("A",45:54)
+A55_64 = paste0("A",55:64)
+A65_99 = paste0("A",65:99)
+A15_99 = paste0("A",15:99)
+
+
+mpop2016_2023$A0_4=apply(mpop2016_2023[,A0_4],1,sum)
+mpop2016_2023$A0_14=apply(mpop2016_2023[,A0_14],1,sum)
+mpop2016_2023$A5_14=apply(mpop2016_2023[,A5_14],1,sum)
+#mpop2016_2023$A15_19=apply(mpop2016_2023[,A15_19],1,sum)
+#mpop2016_2023$A20_24=apply(mpop2016_2023[,A20_24],1,sum)
+mpop2016_2023$A15_24=apply(mpop2016_2023[,A15_24],1,sum)
+mpop2016_2023$A25_34=apply(mpop2016_2023[,A25_34],1,sum)
+mpop2016_2023$A35_44=apply(mpop2016_2023[,A35_44],1,sum)
+mpop2016_2023$A45_54=apply(mpop2016_2023[,A45_54],1,sum)
+mpop2016_2023$A55_64=apply(mpop2016_2023[,A55_64],1,sum)
+mpop2016_2023$A65_99=apply(mpop2016_2023[,A65_99],1,sum)
+mpop2016_2023$A15_99=apply(mpop2016_2023[,A15_99],1,sum)
+
+mpopsummary = mpop2016_2023[,c(1:2,103:112)]
+write.csv(mpopsummary,file="femalepop_summary.csv", row.names = F)

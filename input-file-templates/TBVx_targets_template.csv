@@ -1,0 +1,6 @@
+﻿country,year,VXa,SES,RISK,HIV,TB,dim,subject,flow,age_from,age_thru,value,lo,hi,err,type,name
+,,any,any,any,any,"Ds, Dc","Ds, Dc",prr,NA,0,99,,,,,prr,TB_prr_0_99
+,,any,any,any,any,"Ds, Dc",TB,prev,NA,0,99,,,,,prev,TB_prev_0_99
+,,any,any,any,any,Ds,TB,"Tm, Ti",in,0,99,,,,,inci,TB_inci_0_99
+,,any,any,any,any,TBdead,TB,Ti,in,0,99,,,,,deaths,TB_deaths_0_99
+,,any,any,any,any,T,TB,Tr_init,in,0,99,,,,,notif,TB_notif_0_99

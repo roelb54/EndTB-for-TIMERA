@@ -1,0 +1,54 @@
+---
+title: "C. Demography"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{C. Demography}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### Age
+
+The number of age classes is usually 82: one for every year from 0 to 79, one for people aged 80-89 and one for people aged 90-99.
+
+### Births and aging
+
+Birthrate is determined from the country specific UNPOP data files: population interpolated by single age and single year from 1950-2100 (<https://population.un.org/wpp/Download/Standard/CSV/>).
+
+Newborns are added once per year after aging is applied i.e. shifting each one year age group to the next higher age group (ref Schenzle).
+
+### Adjusting the population composition
+
+Population composition is continuously adjusted to fit UNPOP data:
+
+-   from UNPOP data, for each single year age group, the rate ***a*** to adjust the size of that age group is derived
+
+-   the actual death rate due to HIV and TB is subtracted from ***a***
+
+-   ***a*** is applied to adjust population size (in fact ***a*** is added to other sources of derivatives of the matrix of state variables)
+
+### Demography Output
+
+A baseline simulation run with econ output enabled (i.e. econ.output="true" in the \<detailed.output\> XML element) will produce the following output file types in addition to the [flows] and [stocks] output):
+
+-   [POP].txt : population size by year and age group [numbers]
+-   [dPOPadj].txt : the adjustments in population size to fit UNPOP demography (in the data file specified in the XML e.g. <population file="data/demographics.csv"/>) [as a multiplier of the population at the start of the year e.g. 2000.0 ; a number \< 1 means removal]
+-   [dTBHIVx].txt : the sum of deaths due to TB and HIV [as a rate i.e. number / year determined half way the year e.g. in 2000.5]
+-   [dBGx].txt : background deaths calculated as dBGx = dALLx - dHIVTBx where dALLx is based on WHO deathrates (specified by e.g. <mortality file="data/deathrates.csv"/>) and population size [ as a rate i.e. number / year determined half way the year e.g. in 2000.5; *note that dBGx will be set to 0 when dHIVTBx exceeds dALLx* ]
+
+Note that [dPOPadj].txt reflects the multiplier used in e.g. 2000.0 whereas [POP].txt is the actual population size half a year later e.g. 2000.5. An intervention run reads [dPOPadj].txt to adjust the population size based on the multiplication factors in this file and the population size.
+
+An intervention produces:
+
+-   [POP].txt : population size by year and age group [numbers]
+
+-   [dTBHIVx].txt : the sum of deaths due to TB and HIV [numbers / year]
+
+-   [dBGx].txt : background deaths calculated from dBGx_baseline / POP_baseline \* POP_intervention\
+    \* [dVx1pyr].txt : if vaccination takes place once a year, the numbers vaccinated at the start of the year ; format as in the [flows] output
+
+For both the baseline and intervention run **ALL deaths are simply equal to dBGx + dHIVTBx**.
+
+An intervention that saves lives (i.e. reduced dHIVTBx) will lead to an increased population size and hence to increased numbers of background deaths.
+
+NOTE: to prevent confusion, the output files [dALLx].txt will no longer be generated (or if required by files with a better name). In any case, this output could be generated from the WHO mortality rates and the current population size.

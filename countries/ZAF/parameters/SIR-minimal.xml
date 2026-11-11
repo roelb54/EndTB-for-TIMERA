@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-EndTB-schema-A.xsd">
+  <simulation from.year="2020" thru.year="2021" dt="0.02">
+    <options><numerical.integration/></options>
+    <demography><from.data><population file="data/demographics.csv"/></from.data></demography>
+  </simulation>
+  <output>
+   <detailed.output years="2020+(0:50)*0.02" age.group.lower.limits="c(0,15)">
+      <flows dim="TB" />
+      <flows dim="HIV" />
+      <flows dim="RISK"/>
+      <flows dim="SES"/>
+      <flows dim="VXa"/>
+    </detailed.output>
+  </output>
+  <ages lower.limits="5*(0:15)"/>
+  <VXa> <VXa.stages> <stage name="NA"/></VXa.stages></VXa>
+  <SES> <SES.stages> <stage name="NA"/></SES.stages> </SES>
+  <RISK><RISK.stages><stage name="NA"/></RISK.stages></RISK>
+  <HIV> <HIV.stages> <stage name="NA"/></HIV.stages></HIV>
+  <TB>
+    <TB.stages>
+      <stage name="S" fraction.at.birth="1"/>
+      <stage name="I" />
+      <stage name="R" />
+    </TB.stages>
+    <seeded.infections name="multiplier" value="1">
+      <seeded.infection fraction="0.01" age.from="0" age.thru="99" stage="I"/>
+      <seeded.infection fraction="0.00" age.from="0" age.thru="99" stage="R"/>
+    </seeded.infections>
+    <TB.progression>
+      <TB.parameter name="d" value="7" />
+      <transition.matrix>
+        <transition from="I" to="R" rate="1/(d/365.2425)" />
+      </transition.matrix>
+    </TB.progression>
+   <TB.infectivity>
+      <TB.parameter name="infc" value="1." /> 
+      <infectivity.matrix Mtb-strain="DS">
+        <infectivity stage="I" value="infc" />
+      </infectivity.matrix>
+    </TB.infectivity>
+    <TB.transmission>
+    <TB.parameter name="bc" value="0.4" />
+      <transmission.matrix Mtb-strain="DS">
+        <transition from="S" to="I" rate="bc" />
+      </transmission.matrix>
+    </TB.transmission>
+  </TB>
+</TB.Vx.model.inputfile>

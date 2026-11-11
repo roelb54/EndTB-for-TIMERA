@@ -1,0 +1,12 @@
+name: code-demos
+title: code-demos
+username: roelb54
+account: roelb54
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 18407351
+bundleId:
+url: https://roelb54.shinyapps.io/code-demos/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,57 @@
+---
+title: "A. User Guide Contents"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{A. User Guide Contents}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This document is a user's guide for the **tbvax** model and contains the following sections:
+
+-   [Introduction and background](./B_introduction-and-background.html)\
+    *Definition of the **tbvax** model and its purpose*\
+    *Background on **tbvax** as a system of differential equations*
+
+-   [Demography](./C_demography.html)\
+    *Details about data used for the population composition, births and deaths, and about adjusting the population composition over time*
+
+-   [Model Specification in XML](./D_0_model-specification-in-XML.html)\
+    *Details about specifying **tbvax** models in XML:*
+
+    -   *a simple SIR model*
+
+    -   *an SEIR model with two SES states*
+
+    -   *an SEIR model with two SES states and counting disease incidence*
+
+    -   *a TB model including HIV with documentation about*
+
+        -   the format of incidence files
+
+        -   transition matrices for e.g. TB progression
+
+        -   treatment matrices to force (time dependent) state transitions
+
+        -   TB.infectivity
+
+        -   TB.transmission
+
+        -   contacts matrices
+
+    -   *an HIV TB model with a TB vaccine*
+
+    -   *Using incidence files to impose a prevalence distribution for e.g. the RISK dimension*
+
+-   [Output and evaluation of targets](./E_output-and-evaluation-of-targets.html)\
+    *Details about the **stocks**, **flows** and **hits** output and about the specification of targets to be evaluated in a so-called targets file*
+
+-   [*Working principle of using matrix multiplication to calculate derivatives of state variables*](./F_Matrix_Multiplication_for_Calculating_Derivatives.html)\
+
+-   Optimization [TO DO]\
+    *Details about optimization and how to call the run.optimization() R function*
+
+-   R version and libraries [TO DO]\
+    *The version of R and the R packages used in the current model version (3.1.4)*
+
+Note that all **tbvax** R functions are documented separately.

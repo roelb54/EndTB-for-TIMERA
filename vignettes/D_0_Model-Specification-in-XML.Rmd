@@ -1,0 +1,116 @@
+---
+title: "D.0. Model Specification in XML"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{D.0. Model Specification in XML}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+A **tbvax** model is specified by an XML document.
+
+The type of XML document used for **tbvax** is formally specified in an XML Schema: **TB-Vx-schema-[\#].xsd** where [\#] is the version of the XML Schema.
+
+The XML Schema specifies:
+
+-   additional data types (e.g. fraction, a double between 0.0 and 1.0 inclusive)
+
+-   the structure of the XML document (i.e. the order and hierarchy of XML elements)
+
+-   XML attributes
+
+-   referential integrity (e.g. if an age group is referred to in a parameter definition, the value of the age group is checked for validity)
+
+See <https://www.w3schools.com/xml/schema_intro.asp> for background information about XML Schema.
+
+The overall structure of the XML document (as defined in the XML Schema) is as follows:
+
+``` xml
+<TB.Vx.model.inputfile>
+  <simulation/>
+  <output/>
+  <ages/>
+  <VXa/>
+  <SES/>
+  <RISK/>
+  <HIV/>
+  <TB/>
+</TB.Vx.model.inputfile>
+```
+
+### Cross-dimension parameter dependencies
+
+The TBvax model consists of the following dimensions:
+
+-   age
+
+-   VXa (TB vaccine)
+
+-   SES (socio economic status)
+
+-   RISK (risk factor e.g. diabetes)
+
+-   HIV
+
+-   TB
+
+Apart from age, the states within each dimension are defined by the user.
+
+Parameters defined within a dimension determine the transition between states within that dimension.
+
+To allow e.g. TB progression to depend on vaccination state (or HIV state), it is possible to make TB parameters dependent on VXa state. For instance:
+
+``` xml
+    <TB.transmission>
+      <age.groups>
+        <age.group name="A0"/>
+        <age.group name="A15"/>
+      </age.groups>
+      <TB.parameter VXa.stage="never" name="pV" value="0"/>
+      <TB.parameter VXa.stage="prev1" name="pV" value="0"/>
+      <TB.parameter VXa.stage="prev2" name="pV" value="0"/>
+      <TB.parameter VXa.stage="prev3" name="pV" value="0"/>
+      <TB.parameter VXa.stage="waned" name="pV" value="0"/>
+      <TB.parameter VXa.stage="vac1" name="pV" value="0.45"/>
+      <TB.parameter VXa.stage="vac2" name="pV" value="0.45"/>
+      <TB.parameter VXa.stage="vac3" name="pV" value="0.45"/>
+      <TB.parameter VXa.stage="recvcount" name="pV" value="0"/>
+      <TB.parameter SES.stage="low" name="pE" value="0"/>
+      <TB.parameter SES.stage="high" name="pE" value="0.3567966523385633"/>
+```
+
+The XML fragment above illustrates that the TB parameters that determine transmission may depend on VXa stage i.e. pV (protection due to vaccination pV depends on VXa stage).\
+In the example above the pE parameter is defined to depend on SES stage.
+
+Parameters may also depend on age group:
+
+``` xml
+      <TB.parameter name="sage" age.group="A0" value="1"/>
+      <TB.parameter name="sage" age.group="A15" value="0.655943563330546"/>
+```
+
+The following parameter dependencies may be defined:
+
+**TB.parameter** can depend on VXa.stage, SES.stage, RISK.stage, HIV.stage and age.group
+
+**HIV.parameter** can depend on age.group
+
+**RISK.parameter** can depend on age.group
+
+**SES.parameter** can depend on age.group
+
+**VXa.parameter** can depend on age.group and TB.stage (to make waning dependent on TB stage)
+
+###  Detailed XML examples
+
+Each of the elements of the XML will be documented below, first in a minimal XML document specifying a simple SIR model, then in a more elaborate example specifying ZAF complex, and finally in an example vaccine specification.
+
+-   [A simple SIR model](./D_1_A-simple-SIR-model.html)
+
+-   [An SEIR model with two SES states](./D_2_An-SEIR-model-with-two-SES-states.html)
+
+-   [An SEIR model with two SES states and counting disease incidence](./D_3_An-SEIR-model-with-two-SES-states-and-counting-disease-incidence.html)
+
+-   [XML specification of a TB model including HIV](./D_4_XML-specification-of-a-TB-model-including-HIV.html)
+
+-   [XML specification of an HIV TB model including TB vaccination](./D_5_XML-specification-of-an-HIV-TB-model-including-TB-vaccination.html)

@@ -1,0 +1,12 @@
+name: TPT_Ethiopia
+title: TPT_Ethiopia
+username: roelb54
+account: roelb54
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 18407532
+bundleId: 12803203
+url: https://roelb54.shinyapps.io/TPT_Ethiopia/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
