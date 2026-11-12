@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-EndTB-schema-A.xsd">
+<TB.Vx.model.inputfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../TB-Vx-EndTB-schema-E.xsd">
   <simulation from.year="2020" thru.year="2021" dt="0.02"><!-- dt = 0.02 ; so about 1 week -->
     <options>
       <numerical.integration method="ode23" min.value.for.state.var="-3e-3"/>

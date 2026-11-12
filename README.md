@@ -1,6 +1,12 @@
 README repository KNCVTB/EndTB branch main
 
+Nov  12, 2026  EndTB model version 3.7.7
+
+Upgraded to 3.7.7 due to error message in loading package wrt read.contact.matrix?
+
 Nov  10, 2026  EndTB model version 3.7.6
+
+matmul.by.age.group.trigger still needs reviewing
 
 Jan  18, 2026  EndTB model version 3.7.5
 

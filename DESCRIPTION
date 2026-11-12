@@ -1,7 +1,7 @@
 Package: endTB
 Type: Package
 Title: endTB is an R package for estimating the impact of TB interventions including TB vaccins (pop by gender) 
-Version: 3.7.6
+Version: 3.7.7
 Authors@R: person("Roel", "Bakker", email = "roel.bakker@gmail.com",
                   role = c("aut", "cre"))
 Description: estimates the impact of TB interventions including TB vaccins

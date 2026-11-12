@@ -1,0 +1,22 @@
+# checked for endTB 3.7.6
+rm(list=ls())
+#source("./R/include-v11.R")
+#source("./R/TBVx-run-v1.R")
+#source("./R/TBVx-optimization-fncs-v2.R")
+#taskenvvar="taskID"
+require(endTB)
+
+paths = set.paths(countries   = "countries", countrycode = "ZAF", xml = "SIR.xml")
+output=run(paths,write.to.file = T)
+
+paths = set.paths(countries   = "countries", countrycode = "ZAF", xml = "SIR-minimal.xml")
+output=run(paths,write.to.file = T)
+
+paths = set.paths(countries   = "countries", countrycode = "ZAF", xml = "SEIR-SES.xml")
+output=run(paths,write.to.file = T)
+
+paths = set.paths(countries   = "countries", countrycode = "ZAF", xml = "SEIR-SES-Iinci.xml")
+output=run(paths,write.to.file = T)
+
+
+

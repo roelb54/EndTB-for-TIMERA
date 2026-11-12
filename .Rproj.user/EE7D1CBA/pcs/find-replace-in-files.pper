@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "read.contact.matrix(\"countries",
+        "query": "\"BRA\"",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -12,7 +12,7 @@
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 1,
+        "resultsCount": 0,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true
